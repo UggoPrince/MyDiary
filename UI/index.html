@@ -5,24 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>MyDiary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script src="js/main.js"></script>
 </head>
 <body>
     <div class="container">
         <header class="header" id="indexHeader1">
             <div id="logoDiv">
+                <a href="index.html">
                 <img src="image/diary.jpg" />
                 <span>MyDiary</span>
+                </a>
             </div>
             <div class="nav" id="nav1">
-                <a class="">LOG IN</a>
-                <a class="">SIGN UP</a>
+                <a href="signin.html" class="">SIGN IN</a>
+                <a href="signup.html" class="">SIGN UP</a>
             </div>
         </header>
-        <main id="indexMain1">
-            <div id="descSiteText">MyDiary is a tool to keep records of your daily events and emotions, keep track of miles
-                stones and good times, or even record your dreams and ideas in a journal. MyDiary has you covered.
+        <main class="indexMain" id="indexMain1">
+            <div id="descSiteText">
+                <!--MyDiary is a tool to keep records of your daily events and emotions, keep track of miles
+                stones and good times, or even record your dreams and ideas in a journal. MyDiary has you covered.-->
+                Daily events, your miles stones and good times, even dreams and ideas in a Journal.<br>
+                MyDiary has you covered everywhere.
             </div>
             <div id="descSiteImg">
                 <div class="descSiteImgDiv" id="descSiteImgDiv1"></div>
@@ -33,9 +38,10 @@
                 <div class="descSiteImgDiv" id="descSiteImgDiv6"></div>                
             </div>
             <div id="descSiteRegLink">
-                <a>Get Started</a>
+                <a href="signup.html">Get Started</a>
             </div>
         </main>
+        <main class="indexMain" id="indexMain2"></main>
     </div>
 </body>
 </html>

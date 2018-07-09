@@ -2,6 +2,10 @@ body{
     margin: 0%;
 }
 
+a{
+    text-decoration: none;
+}
+
 .container{
     width: 100%;
     min-height: 100vh;
@@ -50,7 +54,7 @@ body{
     text-align: center;
     display: inline-block;
     cursor: pointer;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 18px 50px 18px 50px;
     /*background-color: rgb(229, 233, 238);*/
     background-color: rgb(252, 138, 118);
@@ -66,14 +70,20 @@ main{
     width: 100%;
 }
 
-#indexMain1{
+.indexMain{
     min-height: 96vh;
     display: inline-block;
-    background-image: url("../image/bg.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-origin: border-box;
     background-size: cover;
+}
+#indexMain1{
+    background-image: url("../image/bg.jpg");
+}
+#indexMain2{
+    display: none;
+    background-image: url("../image/bg.jpeg");
 }
 #descSiteText{
     max-width: 700px;
@@ -82,7 +92,7 @@ main{
     display: block;
     padding: 30px 0px 0px 0px;
     color: white;
-    font-size: 28px;
+    font-size: 30px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: auto;
     text-align: center;
@@ -104,7 +114,7 @@ main{
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    opacity: 0.95;
+    opacity: 0.94;
 }
 #descSiteImgDiv1{background-image: url("../image/desc1.jpg");}
 #descSiteImgDiv2{background-image: url("../image/desc2.jpg");}
@@ -129,7 +139,8 @@ main{
     color: white;
     border-radius: 4px;
 }
-@media only screen and (max-width:480px){
+
+@media screen and (max-width:480px){
     #logoDiv img{
         width: 40px;
         padding: 5px 0px 0px 5px;
@@ -152,9 +163,97 @@ main{
     }
 }
 
-@media only screen and (min-width:300px){
+@media screen and (max-width:342px) and (min-width:300px){
     .descSiteImgDiv{
         width: 140px;
         height: 110px;
     }
+}
+
+/*
+ * Sign in form section
+ */
+
+.signForm{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin:15vh auto 70px auto;
+    max-width: 450px;
+    min-height: 200px;
+    width: 95%;
+    box-sizing: border-box;
+    padding: 15px 10px 25px 10px;
+    /*box-shadow: 0px 0px 5px thistle;*/
+    border-radius: 4px;
+    background-color: white;
+}
+.formNotice{
+    font-size: 14px;
+    color: tomato;
+}
+.signForm p{
+    width: 98%;
+    min-height: 16px;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signForm p label{
+    display: block;
+    width: inherit;
+    min-height: 20px;
+    font-size: 14px;
+    box-sizing: border-box;
+    color: royalblue;
+}
+
+/*.signForm p label span{
+    color: red;
+}*/
+
+.signFormErrDiv{
+    display: block;
+    width: 98%;
+    min-height: 30px;
+    margin-top: 14px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signForm p input[type="email"], input[type="password"], input[id="signupFirstName"], input[id="signupLastName"]{
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid #777;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.signForm a{
+    text-decoration: none;
+    color: royalblue;
+}
+
+.signForm input[type="submit"]{
+    float: right;
+    background-color: royalblue;
+    color: white;
+    font-size: 15px;
+    margin-right: 70px;
+    border: 1px solid royalblue;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    box-shadow: 0px 1px 5px #777;
+    cursor: pointer;
+}
+.signForm input[type="submit"]:hover{
+    box-shadow: 0px 1px 5px #444;
+}
+#lastP{
+    display: inline-block;
 }

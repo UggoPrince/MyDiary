@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyDiary - Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header" id="indexHeader1">
+            <div id="logoDiv">
+                <a href="index.html">
+                <img src="image/diary.jpg" />
+                <span>MyDiary</span>
+                </a>
+            </div>
+            <div class="nav" id="nav1">
+                <a href="index.html" class="">HOME</a>
+                <a href="signin.html" class="">SIGN IN</a>
+            </div>
+        </header>
+        <main class="indexMain" id="indexMain1">
+            <form class="signForm" id="signupForm" name="signupForm" method="POST">
+                <h2>Sign Up</h2>
+                <span class="formNotice">All fields are required.</span>
+                <p>
+                    <label id="signupFirstNameLabel"></label>
+                    <input type="text" id="signupFirstName" name="signupFirstName" placeholder="Firstname" />
+                </p>
+                <p>
+                    <label id="signupLastNameLabel"></label>
+                    <input type="text" id="signupLastName" name="signupLastName" placeholder="Lastname" />
+                </p>
+                <p>
+                    <label id="signupEmailLabel"></label>
+                    <input type="email" id="signupEmail" name="signupEmail" placeholder="Email" />
+                </p>
+                <p>
+                    <label id="signupPassLabel"></label>
+                    <input type="password" id="signupPass" name="signupPass" placeholder="Password" />
+                </p>
+                <p>
+                    <label id="signupPassLabel2"></label>
+                    <input type="password" id="signupPass2" name="signupPass2" placeholder="Confirm Password" />
+                </p>
+                        
+                <div class="signFormErrDiv" id="signupErrorDiv"></div>
+                <p>
+                    <div>
+                        <a href="signin.html">Have an account? Sign in here.</a>
+                        <input type="submit" value="Sign Up" />
+                    </div>
+                </p>
+            </form>
+        </main>
+        <main></main>
+
+    </div>
+    
+</body>
+</html>
