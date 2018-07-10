@@ -249,6 +249,9 @@ class User{
         if(localStorage.getItem('users') == null){
             localStorage.setItem("users", JSON.stringify(this.users));
         }
+        else{
+            this.users = JSON.parse(localStorage.getItem('users'));
+        }
     }
 
     createUser(email, pass, fname, lname){
@@ -261,7 +264,6 @@ class User{
 
         this.users.push(user);
         localStorage.setItem("users", JSON.stringify(this.users));
-        this.users = [];
         return id;
     }
 
@@ -275,6 +277,18 @@ class User{
         return -1;
     }
 
+    getUsersName(id){
+        let i = id - 1;
+        let fname = this.users[i].firstname;
+        let lname = this.users[i].lastname;
+        let f = fname.split('');
+        let l = lname.split('');
+        f[0] = f[0].toUpperCase();
+        l[0] = l[0].toUpperCase();
+        name = f.join('') + " " + l.join('');
+        return name;
+    }
+
     emailExist(em){
         this.users = JSON.parse(localStorage.getItem("users"));
         if(this.users.length == 0) return false;
@@ -283,6 +297,192 @@ class User{
                 if(u.email == em) return true;
             }
         }
+    }
+}
+
+class Journals{
+    constructor(){
+        this.journals = [];
+        this.id = null;
+        this.initStorage();
+    }
+
+    initStorage(){
+        this.id = JSON.parse(localStorage.getItem('logedUser')).id;
+        if(localStorage.getItem('journals') == null){
+            let id = this.id;
+            this.journals[id] = [];
+            localStorage.setItem("journals", JSON.stringify(this.journals));
+        }
+        else{
+            this.journals = JSON.parse(localStorage.getItem('journals'));
+        }
+    }
+
+    addJournal(title, body){
+        let t = new Date().toUTCString();
+        let j = {'title':title, 'body':body, 'time':t, 'updated':false};
+        this.journals[this.id].push(j);
+        alert("Successfully Added");
+        return;
+    }
+
+    updateJournal(){}
+}
+
+class AddUpdateJHandler{
+    constructor(title, body, save1, save2, label1, label2) {
+        this.titleBox = title;
+        this.bodyBox = body;
+        this.saveButton1 = save1;
+        this.saveButton2 = save2;
+        this.labelTitle = label1;
+        this.labelBody = label2;
+        this.title = null;
+        this.body = null;
+        this.errorInput = false;
+    }
+
+    checkFocusAfterLoad(input, label, text){
+        if(input.value != 0) label.innerHTML = text;
+    }
+
+    inputStart(e, label, text){
+        if(e.target.value.length != 0)
+            label.innerHTML = text;
+        else label.innerHTML = "";
+    }
+
+    inputLooseFocus(e, label, text){
+        let val = e.target.value;
+        if(val.length == 0) label.innerHTML = "";
+        else if(val.length != 0) label.innerHTML = text;
+    }
+
+    getEntry(e){
+        this.title = this.titleBox.value;
+        this.body = this.bodyBox.value;
+    }
+
+    checkEntry(){
+        if(this.body.length == 0){
+            this.errorInput = true;
+            this.labelBody.innerHTML = "<span>Error! Empty Body.</span>"
+        }
+        else{
+            this.errorInput = false;
+        }
+    }
+}
+
+class AddJournalHandler extends AddUpdateJHandler{
+    constructor(title, body, save1, save2, label1, label2){
+        super(title, body, save1, save2, label1, label2);
+        this.regEvents();
+    }
+    
+    regEvents(){
+        this.checkFocusAfterLoad(this.titleBox, this.labelTitle, "Title");
+        this.checkFocusAfterLoad(this.bodyBox, this.labelBody, "Body");
+
+        this.titleBox.addEventListener('input', (event)=>{
+            this.inputStart(event, this.labelTitle, "Title");
+        });
+        this.titleBox.addEventListener('blur', (event)=>{
+            this.inputStart(event, this.labelTitle, "Title");
+        });
+
+        this.bodyBox.addEventListener('input', (event)=>{
+            this.inputStart(event, this.labelBody, "Body");
+        });
+        this.bodyBox.addEventListener('blur', (event)=>{
+            this.inputStart(event, this.labelBody, "Body");
+        });
+
+        this.saveButton1.addEventListener('click', (event)=>{
+            this.getEntry(event);
+            this.checkEntry();
+            if(!this.errorInput) this.addJournal();
+        });
+        this.saveButton2.addEventListener('click', (event)=>{
+            this.getEntry(event);
+            this.checkEntry();
+            if(!this.errorInput) this.addJournal();
+        });
+    }
+
+    addJournal(){
+        let jo = new Journals();
+        jo.addJournal(this.title, this.body);
+        this.hideAddBox();
+    }
+
+    hideAddBox(){
+        showAddBox("none");
+        this.titleBox.value = "";
+        this.bodyBox.value = "";
+        this.labelTitle.innerHTML = "";
+        this.labelBody.innerHTML = "";
+    }
+
+}
+
+function showAddBox(show){
+    let jBox = document.getElementById('addJModal');
+    jBox.style.display = show;
+}
+
+function signOut(e){
+    localStorage.removeItem('logedUser');
+    if(!localStorage.logedUser)
+        location.replace("index.html");
+}
+
+
+
+function desidePageIndex(){
+    let mainTag1 = document.getElementById('indexMain1');
+    let mainTag2 = document.getElementById('indexMain2');
+    let header1 = document.getElementById('indexHeader1');
+    let header2 = document.getElementById('indexHeader2');
+    let addJButton = document.getElementById('addJButton');
+
+    let closeAddBoxButton = document.getElementById('closeAddBox');
+    let addTextTitle = document.getElementById('addTitle');
+    let addTextBody = document.getElementById('addBody');
+    let saveButton1 = document.getElementById('saveButton1');
+    let saveButton2 = document.getElementById('saveButton2');
+    let addLabel1 = document.getElementById('addLabelTitle');
+    let addLabel2 = document.getElementById('addLabelBody');
+
+    let logOut = document.getElementById('signOutDesktop');
+
+    if(localStorage.getItem('logedUser') != null){
+        header1.style.display = "none";
+        mainTag1.style.display = "none";
+        header2.style.display = "inline-block";
+        mainTag2.style.display = "inline-block";
+
+        let id = JSON.parse(localStorage.getItem("logedUser")).id;
+        let u = new User();
+        let addHandler = new AddJournalHandler(addTextTitle, addTextBody, saveButton1, saveButton2, 
+            addLabel1, addLabel2);
+        let name = u.getUsersName(id);
+        document.getElementById('nameDiv').innerHTML = name;
+
+        logOut.addEventListener('click', signOut);
+        addJButton.addEventListener('click', (event)=>{
+            showAddBox("block");
+        });
+        closeAddBoxButton.addEventListener('click', (event)=>{
+            showAddBox("none");
+        });
+    }
+    else{
+        header2.style.display = "none";
+        mainTag2.style.display = "none";
+        header1.style.display = "inline-block";
+        mainTag1.style.display = "inline-block";
     }
 }
 
@@ -297,16 +497,7 @@ function setup(){
         signUpForm.initProps();
     }
     else if(linkFile == "index.html"){
-        desidePage();
-    }
-}
-
-function desidePage(){
-    let mainTag1 = document.getElementById('indexMain1');
-    let mainTag2 = document.getElementById('indexMain2');
-    if(localStorage.getItem('logedUser') != null){
-        mainTag1.style.display = "none";
-        mainTag2.style.display = "inline-block";
+        desidePageIndex();
     }
 }
 

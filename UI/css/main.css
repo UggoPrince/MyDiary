@@ -10,18 +10,26 @@ a{
     width: 100%;
     min-height: 100vh;
     margin: auto;
+    background-image: url("../image/bbg1.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-origin: border-box;
     background-size: cover;
 }
 
-
-#indexHeader1{
+header{
     width: 100%;
     min-height: 30px;
+    background-image: url("../image/whitebg2.png");
+}
+
+#indexHeader1{
     display: inline-block;
     clear: both;
+}
+
+#indexHeader2{
+    display: none;
 }
 
 #logoDiv{
@@ -38,19 +46,19 @@ a{
 #logoDiv span{
     vertical-align: middle;
     font-weight: bolder;
-    color: #777;
+    color: #444;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 18px;
-    font-family: Georgia;
     padding: 23px 0px 23px 0px;
 }
 
-#indexHeader1 #nav1{
+#indexHeader1 #nav1, #indexHeader2 #nav1{
     min-height: 30px;
     float: right;
 
 }
 
-#indexHeader1 #nav1 a{
+#indexHeader1 #nav1 a, #indexHeader2 #nav1 a{
     text-align: center;
     display: inline-block;
     cursor: pointer;
@@ -61,7 +69,7 @@ a{
     color: #FFF;
 }
 
-#indexHeader1 #nav1 a:hover{
+#indexHeader1 #nav1 a:hover, #indexHeader2 #nav1 a:hover{
     background-color: rgb(214, 64, 37);
     color: white;
 }
@@ -83,7 +91,7 @@ main{
 }
 #indexMain2{
     display: none;
-    background-image: url("../image/bg.jpeg");
+    /*background-image: url("../image/bg.jpeg");*/
 }
 #descSiteText{
     max-width: 700px;
@@ -138,6 +146,178 @@ main{
     background-color: royalblue;
     color: white;
     border-radius: 4px;
+}
+
+.allJournals{
+    max-width: 1000px;
+    width: 95%; 
+    height: 80%;
+    margin: 40px auto 0px auto;
+    background-image: url("../image/whitebg.png");
+    box-sizing: border-box;
+}
+
+.journalHeader{
+    width: 100%;
+    min-height: 50px;
+    background-image: url("../image/whitebg2.png");
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.jhDiv{
+    display: inline-block;
+    padding: 15px 15px 15px 15px;
+    vertical-align: middle;
+}
+
+.nameDiv{
+    display:block;
+    width: 99%;
+    margin: auto;
+    padding-top: 5px;
+    min-height: 20px;
+    font-weight: bold;
+}
+
+#addButtonDiv{
+    float: right;
+}
+
+.journalHeader div span{
+    color: #222;
+    font-weight: bold;
+}
+
+.journalHeader div button{
+    padding: 2px 15px 2px 15px;
+    background-color: royalblue;
+    color: white;
+    border: 1px solid royalblue;
+    box-shadow: 0px 1px 5px #777;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.journalHeader div button:hover{
+    box-shadow: 0px 1px 5px #444;
+    background-color: rgb(81, 118, 228);
+}
+
+.addJModal{
+    display: none;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.2); /* Black w/ opacity */
+}
+
+#addJournalBox{
+    background-color: white;
+    max-width: 800px;
+    width: 95%;
+    min-height: 100px;
+    margin: 10% auto;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #888;
+    box-sizing: border-box;
+}
+
+.addBoxButtonsDiv{
+    width: 100%;
+    display: inline-block;
+}
+.addBoxButtonsDiv span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #DDD;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.save{
+    float: right;
+    padding: 4px 15px 5px 15px;
+    background-color: royalblue;
+    color: white;
+    border: 1px solid #555;
+    margin-right: 10px;
+    box-shadow: 0px 1px 5px #777;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close {
+    float: right;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 2px 15px 2px 15px;
+    background-color: white;
+    color: black;
+    border: 1px solid #555;
+    box-shadow: 0px 1px 5px #777;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    border-color: rgb(214, 64, 37);
+    background-color: rgb(214, 64, 37);
+    box-shadow: 0px 1px 5px #444;
+}
+
+.addBoxBody{
+    width: auto;
+    height: auto;
+}
+
+.addBoxBody textarea{
+    margin: auto;
+    width: 100%;
+}
+
+.addBoxBody textarea[class="inputTitle"]{
+    resize: none;
+    height: 40px;
+    border-top: 0px;
+    border-left:0px;
+    border-right: 0px;
+    border-bottom:   1px solid #555;
+    border-style: inset #555;
+    overflow-y: scroll;
+}
+
+.addBoxBody textarea[class="inputBody"]{
+    resize: none;
+    height: 250px;
+    border: 1px solid #666;
+    overflow-y: scroll;
+}
+
+.addBoxBody p{
+    margin-top: 10px;
+}
+
+.addBoxBody p label{
+    display: block;
+    width: inherit;
+    min-height: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    color: royalblue;
+}
+
+.addBoxBody p label span{
+    color: rgb(214, 64, 37);
+    font-size: 15px;
 }
 
 @media screen and (max-width:480px){
