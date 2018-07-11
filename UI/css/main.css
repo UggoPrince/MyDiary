@@ -38,7 +38,7 @@ header{
 }
 
 #logoDiv img{
-    width: 50px;
+    width: 40px;
     vertical-align: middle;
     padding: 5px 0px 0px 23px;
 }
@@ -166,7 +166,7 @@ main{
 
 .jhDiv{
     display: inline-block;
-    padding: 15px 15px 15px 15px;
+    padding: 7px 15px 10px 15px;
     vertical-align: middle;
 }
 
@@ -189,7 +189,7 @@ main{
 }
 
 .journalHeader div button{
-    padding: 2px 15px 2px 15px;
+    padding: 1px 15px 2px 15px;
     background-color: royalblue;
     color: white;
     border: 1px solid royalblue;
@@ -201,6 +201,45 @@ main{
 .journalHeader div button:hover{
     box-shadow: 0px 1px 5px #444;
     background-color: rgb(81, 118, 228);
+}
+
+.allJournalsBox{
+    width: 100%;
+    height: 481px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+.allJHolder{
+    width: 100%;
+    min-height: 200px;
+    display: inline-block;
+}
+.jHolder{
+    width: 99%;
+    margin: 3px auto 0px auto;
+    background-image: url("../image/whitebg2.png");
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 4px 3px 4px 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.jHolder input span{
+    vertical-align: text-top;
+}
+.jHolder span{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    vertical-align: text-top;
+}
+.jTitleSpan{max-width: 35%;text-align: left;}
+.jBodySpan{max-width: 40%;color: #555; text-align: left;}
+.jDateSpan{width:15%;color: #555;float: right;}
+.jHolder input{
+    margin-right: 10px;
+    float: left;
 }
 
 .addJModal{
@@ -356,7 +395,7 @@ main{
 
 .signForm{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin:15vh auto 70px auto;
+    margin:14vh auto 70px auto;
     max-width: 450px;
     min-height: 200px;
     width: 95%;

@@ -320,14 +320,19 @@ class Journals{
     }
 
     addJournal(title, body){
-        let t = new Date().toUTCString();
-        let j = {'title':title, 'body':body, 'time':t, 'updated':false};
+        let time = new Date().toUTCString();
+        let j = {'title':title, 'body':body, 'time':time, 'updated':false};
         this.journals[this.id].push(j);
+        localStorage.setItem('journals', JSON.stringify(this.journals));
         alert("Successfully Added");
         return;
     }
 
     updateJournal(){}
+
+    getUserJournal(){
+        return this.journals[this.id];
+    }
 }
 
 class AddUpdateJHandler{
@@ -425,6 +430,59 @@ class AddJournalHandler extends AddUpdateJHandler{
         this.labelBody.innerHTML = "";
     }
 
+} // end class AddJournalHandler
+
+class ViewAllJournalsHandler{
+    constructor(vBox){
+        this.viewBox = vBox;
+        this.userJournals = this.getJForUser();
+    }
+
+    getJForUser(){
+        return new Journals().getUserJournal();
+    }
+
+    populateViewBox(){
+        if(this.userJournals.length != 0){
+            let jonals = this.userJournals;
+            document.getElementById('jCount').innerHTML = jonals.length;
+
+            let allJholder = document.createElement('div');
+            allJholder.className = 'allJHolder';
+
+            for(let i = 0; i < jonals.length; i++){
+
+                let jHolder = document.createElement('div');
+                jHolder.className = 'jHolder';
+
+                let checkBox = document.createElement('input');
+                checkBox.setAttribute('type', 'checkbox');
+
+                let titleSpan = document.createElement('span');
+                titleSpan.className = 'jTitleSpan';
+                titleSpan.innerHTML = jonals[i]['title'];
+
+                let bodySpan = document.createElement('span');
+                bodySpan.className = 'jBodySpan';
+                bodySpan.innerHTML = "&nbsp; - " + jonals[i]['body'];
+
+                let dateSpan = document.createElement('span');
+                dateSpan.className = 'jDateSpan';
+
+                let time = jonals[i]['time'].split(' ');
+                dateSpan.innerHTML = time[2] + " " + time[1];
+
+                jHolder.appendChild(checkBox);
+                jHolder.appendChild(titleSpan);
+                jHolder.appendChild(bodySpan);
+                jHolder.appendChild(dateSpan);
+                allJholder.appendChild(jHolder);
+            }
+            this.viewBox.appendChild(allJholder);
+        }
+    }
+
+    addJToViewBox(){}
 }
 
 function showAddBox(show){
@@ -454,6 +512,7 @@ function desidePageIndex(){
     let saveButton2 = document.getElementById('saveButton2');
     let addLabel1 = document.getElementById('addLabelTitle');
     let addLabel2 = document.getElementById('addLabelBody');
+    let allJViewBox = document.getElementById('allJournalsBox');
 
     let logOut = document.getElementById('signOutDesktop');
 
@@ -465,10 +524,12 @@ function desidePageIndex(){
 
         let id = JSON.parse(localStorage.getItem("logedUser")).id;
         let u = new User();
-        let addHandler = new AddJournalHandler(addTextTitle, addTextBody, saveButton1, saveButton2, 
+        new AddJournalHandler(addTextTitle, addTextBody, saveButton1, saveButton2, 
             addLabel1, addLabel2);
+        let jViewBox = new ViewAllJournalsHandler(allJViewBox);
         let name = u.getUsersName(id);
         document.getElementById('nameDiv').innerHTML = name;
+        jViewBox.populateViewBox();
 
         logOut.addEventListener('click', signOut);
         addJButton.addEventListener('click', (event)=>{
