@@ -316,6 +316,9 @@ class Journals{
         }
         else{
             this.journals = JSON.parse(localStorage.getItem('journals'));
+            if(!this.journals[this.id]) {
+                this.journals[this.id] = [];
+            }
         }
     }
 
@@ -331,7 +334,9 @@ class Journals{
     updateJournal(){}
 
     getUserJournal(){
-        return this.journals[this.id];
+        if(this.journals[this.id]){
+            return this.journals[this.id];
+        }else return null;
     }
 }
 
@@ -420,6 +425,7 @@ class AddJournalHandler extends AddUpdateJHandler{
         let jo = new Journals();
         jo.addJournal(this.title, this.body);
         this.hideAddBox();
+        new ViewAllJournalsHandler().addJToViewBox();
     }
 
     hideAddBox(){
@@ -433,8 +439,9 @@ class AddJournalHandler extends AddUpdateJHandler{
 } // end class AddJournalHandler
 
 class ViewAllJournalsHandler{
-    constructor(vBox){
+    constructor(vBox, dBox){
         this.viewBox = vBox;
+        this.detailBox = dBox;
         this.userJournals = this.getJForUser();
     }
 
@@ -443,17 +450,22 @@ class ViewAllJournalsHandler{
     }
 
     populateViewBox(){
-        if(this.userJournals.length != 0){
+        if(this.userJournals && this.userJournals.length != 0){
             let jonals = this.userJournals;
             document.getElementById('jCount').innerHTML = jonals.length;
 
             let allJholder = document.createElement('div');
+            allJholder.setAttribute('id', 'allJHolder')
             allJholder.className = 'allJHolder';
 
-            for(let i = 0; i < jonals.length; i++){
+            for(let i = jonals.length-1; i > -1; i--){
 
                 let jHolder = document.createElement('div');
+                jHolder.dataset.id = i;
                 jHolder.className = 'jHolder';
+                jHolder.addEventListener('click',(event)=>{
+                    this.showContentDetails(event, i);
+                });
 
                 let checkBox = document.createElement('input');
                 checkBox.setAttribute('type', 'checkbox');
@@ -482,7 +494,107 @@ class ViewAllJournalsHandler{
         }
     }
 
-    addJToViewBox(){}
+    addJToViewBox(){
+        let jonals = this.userJournals;
+        document.getElementById('jCount').innerHTML = jonals.length;
+        let n = jonals.length - 1;
+
+        if(n == 0){
+            var allJholder = document.createElement('div');
+            allJholder.setAttribute('id', 'allJHolder');
+            allJholder.className = 'allJHolder';
+        }
+        else if(n > 0){
+            var allJholder = document.getElementById('allJHolder');
+        }
+
+        let jHolder = document.createElement('div');
+        jHolder.dataset.id = n;
+        jHolder.className = 'jHolder';
+        jHolder.addEventListener('click',(event)=>{
+            this.showContentDetails(event);
+        });
+
+        let checkBox = document.createElement('input');
+        checkBox.setAttribute('type', 'checkbox');
+
+        let titleSpan = document.createElement('span');
+        titleSpan.className = 'jTitleSpan';
+        titleSpan.innerHTML = jonals[n]['title'];
+
+        let bodySpan = document.createElement('span');
+        bodySpan.className = 'jBodySpan';
+        bodySpan.innerHTML = "&nbsp; - " + jonals[n]['body'];
+
+        let dateSpan = document.createElement('span');
+        dateSpan.className = 'jDateSpan';
+
+        let time = jonals[n]['time'].split(' ');
+        dateSpan.innerHTML = time[2] + " " + time[1];
+
+        jHolder.appendChild(checkBox);
+        jHolder.appendChild(titleSpan);
+        jHolder.appendChild(bodySpan);
+        jHolder.appendChild(dateSpan);
+        if(n != 0){
+            allJholder.insertBefore(jHolder, allJholder.childNodes[0]);
+        }
+        else if(n == 0){
+            allJholder.appendChild(jHolder);
+            document.getElementById('allJournalsBox').appendChild(allJholder);
+        }
+    }
+
+    showContentDetails(e, i){
+        if(e.target.type != "checkbox"){
+            let backButton = document.getElementById('backButton');
+            let addJButton = document.getElementById('addJButton');
+            let titleDetailBox = document.getElementById('titleDetail');
+            let timeDetailBox = document.getElementById('timeDetail');
+            let bodyDetailBox = document.getElementById('bodyDetail');
+            let jCount = document.getElementById('jCount');
+
+            jCount.innerHTML = (1 + i) + "/" + this.userJournals.length;
+            timeDetailBox.innerHTML = this.userJournals[i].time;
+            titleDetailBox.innerHTML = this.userJournals[i].title;
+            bodyDetailBox.innerHTML = this.userJournals[i].body;
+
+            addJButton.style.display = 'none';
+            this.viewBox.style.display = 'none';
+
+            backButton.style.display = 'block';
+            this.detailBox.style.display = 'block';
+        }
+    }
+}
+
+class DetailViewHandler{
+    constructor(detailB, timeDetailB, titleDetailB, bodyDetailB, backB){
+        this.detailBox = detailB;
+        this.timeDetailBox = timeDetailB;
+        this.titleDetailBox = titleDetailB;
+        this.bodyDetailBox = bodyDetailB;
+        this.backButton = backB;
+        this.jCount = (new ViewAllJournalsHandler().getJForUser()) ? new ViewAllJournalsHandler().getJForUser().length : 0; 
+        this.regEvents();
+    }
+
+    regEvents(){
+        this.backButton.addEventListener('click', (event)=>{
+            this.closeView();
+        })
+    }
+
+    closeView(){
+        this.detailBox.style.display = 'none';
+        this.backButton.style.display = 'none';
+        document.getElementById('jCount').innerHTML = this.jCount;
+        document.getElementById('addJButton').style.display = 'inline-block';
+        document.getElementById('allJournalsBox').style.display = 'block';
+        this.timeDetailBox.innerHTML = "";
+        this.titleDetailBox.innerHTML = '';
+        this.bodyDetailBox.innerHTML = '';
+    }
 }
 
 function showAddBox(show){
@@ -514,6 +626,12 @@ function desidePageIndex(){
     let addLabel2 = document.getElementById('addLabelBody');
     let allJViewBox = document.getElementById('allJournalsBox');
 
+    let backButton = document.getElementById('backButton');
+    let detailBox = document.getElementById('detailContent');
+    let titleDetailBox = document.getElementById('titleDetail');
+    let timeDetailBox = document.getElementById('timeDetail');
+    let bodyDetailBox = document.getElementById('bodyDetail');
+
     let logOut = document.getElementById('signOutDesktop');
 
     if(localStorage.getItem('logedUser') != null){
@@ -526,7 +644,8 @@ function desidePageIndex(){
         let u = new User();
         new AddJournalHandler(addTextTitle, addTextBody, saveButton1, saveButton2, 
             addLabel1, addLabel2);
-        let jViewBox = new ViewAllJournalsHandler(allJViewBox);
+        let jViewBox = new ViewAllJournalsHandler(allJViewBox, detailBox);
+        new DetailViewHandler(detailBox, timeDetailBox, titleDetailBox, bodyDetailBox, backButton);
         let name = u.getUsersName(id);
         document.getElementById('nameDiv').innerHTML = name;
         jViewBox.populateViewBox();

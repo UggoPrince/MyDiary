@@ -11,8 +11,8 @@ a{
     min-height: 100vh;
     margin: auto;
     background-image: url("../image/bbg1.jpg");
-    background-repeat: no-repeat;
     background-position: center;
+    background-repeat: no-repeat;
     background-origin: border-box;
     background-size: cover;
 }
@@ -151,8 +151,8 @@ main{
 .allJournals{
     max-width: 1000px;
     width: 95%; 
-    height: 80%;
-    margin: 40px auto 0px auto;
+    min-height: 80%;
+    margin: 20px auto 0px auto;
     background-image: url("../image/whitebg.png");
     box-sizing: border-box;
 }
@@ -182,6 +182,9 @@ main{
 #addButtonDiv{
     float: right;
 }
+#backButton{
+    display: none;
+}
 
 .journalHeader div span{
     color: #222;
@@ -205,13 +208,13 @@ main{
 
 .allJournalsBox{
     width: 100%;
-    height: 481px;
-    overflow-y: auto;
+    height: 468px;
+    overflow-y: scroll;
     box-sizing: border-box;
 }
 .allJHolder{
     width: 100%;
-    min-height: 200px;
+    min-height: 400px;
     display: inline-block;
 }
 .jHolder{
@@ -235,12 +238,36 @@ main{
     vertical-align: text-top;
 }
 .jTitleSpan{max-width: 35%;text-align: left;}
-.jBodySpan{max-width: 40%;color: #555; text-align: left;}
-.jDateSpan{width:15%;color: #555;float: right;}
+.jBodySpan{max-width: 45%;color: #555; text-align: left;}
+.jDateSpan{width:10%;color: #555;float: right;}
 .jHolder input{
     margin-right: 10px;
     float: left;
 }
+
+.detailContent{
+    display: none;
+    width: 100%;
+    margin: 1px auto 0px auto;
+    width: 99%;
+    height: 468px;
+    overflow-y: scroll;
+    box-sizing: border-box;
+}
+.detailContent div{
+    widows: 100%;
+    margin: 1px auto;
+    box-sizing: border-box;
+    padding: 3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("../image/whitebg2.png");
+}
+#timeDetail{
+    display: block;
+    font-size: 12px;
+}
+#titleDetail{display: block; font-size: 15px;font-weight: 700;}
+#bodyDetail{display: block;min-height: 415px;font-size: 15px;}
 
 .addJModal{
     display: none;
@@ -395,7 +422,7 @@ main{
 
 .signForm{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin:14vh auto 70px auto;
+    margin:10vh auto 70px auto;
     max-width: 450px;
     min-height: 200px;
     width: 95%;

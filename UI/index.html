@@ -65,16 +65,26 @@
 
         <!--This main body displays when you have signed in-->
         <main class="indexMain" id="indexMain2">
-            <div class="allJournals">
+            <div class="allJournals" id="allJournals">
                 <div class="journalHeader">
                     <div class="nameDiv" id="nameDiv"></div>
                     <div>
                         <div class="jhDiv"><span id="jCount">0</span><span> - Journal(s)</span></div>
-                        <div class="jhDiv" id="addButtonDiv"><button id="addJButton">write <i class="fa fa-plus"></i></button></div>
+                        <div class="jhDiv" id="addButtonDiv">
+                            <button id="backButton">Back</button>
+                            <button id="addJButton">write <i class="fa fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>
                 <div class="allJournalsBox" id="allJournalsBox">
 
+                </div>
+                <div class="detailContent" id="detailContent">
+                    <div id="title_and_time">
+                        <span id="timeDetail"></span>
+                        <span id="titleDetail"></span>
+                    </div>
+                    <div id="bodyDetail"></div>
                 </div>
             </div>
         </main>
