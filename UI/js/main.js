@@ -108,7 +108,6 @@ class SignInForm extends SignForm{
                     let logedUser = {"id":id, "email":email};
                     localStorage.setItem('logedUser', JSON.stringify(logedUser));
                     location.href = "index.html";
-                    //alert(email + " : " + pass );
                 }
                 else{
                     this.displayError("Error in email/password!");
@@ -221,7 +220,6 @@ class SignUpForm extends SignForm{
         }
         else{
             this.errorDiv.innerHTML = "";
-            //alert(fname + " " +  lname +" " + email + " : " + pass );
             let user = new User();
             if(user.emailExist(email)) this.displayError("This account already exist!.<br>"
                 + "Kindly sign in with your Details.");
@@ -331,7 +329,16 @@ class Journals{
         return;
     }
 
-    updateJournal(){}
+    updateJournal(i, title, body){
+        let time = new Date().toUTCString();
+        this.journals[this.id][i]['title'] = title;
+        this.journals[this.id][i]['body'] = body;
+        this.journals[this.id][i]['time'] = time;
+        this.journals[this.id][i]['updated'] = true;
+        localStorage.setItem('journals', JSON.stringify(this.journals));
+        alert('successfully Updated');
+        return {'title':title, 'body':body, 'time':time, 'updated': true};
+    }
 
     getUserJournal(){
         if(this.journals[this.id]){
@@ -383,6 +390,15 @@ class AddUpdateJHandler{
             this.errorInput = false;
         }
     }
+
+    hideShowAddBox(show, box){
+        let jBox = document.getElementById(box);
+        jBox.style.display = show;
+        this.titleBox.value = "";
+        this.bodyBox.value = "";
+        this.labelTitle.innerHTML = "";
+        this.labelBody.innerHTML = "";
+    }
 }
 
 class AddJournalHandler extends AddUpdateJHandler{
@@ -424,24 +440,69 @@ class AddJournalHandler extends AddUpdateJHandler{
     addJournal(){
         let jo = new Journals();
         jo.addJournal(this.title, this.body);
-        this.hideAddBox();
+        this.hideShowAddBox("none", 'addJModal');
         new ViewAllJournalsHandler().addJToViewBox();
-    }
-
-    hideAddBox(){
-        showAddBox("none");
-        this.titleBox.value = "";
-        this.bodyBox.value = "";
-        this.labelTitle.innerHTML = "";
-        this.labelBody.innerHTML = "";
     }
 
 } // end class AddJournalHandler
 
+class ModifyJournalHandler extends AddUpdateJHandler{
+    constructor(modal, title, body, save1, save2, label1, label2){
+        super(title, body, save1, save2, label1, label2);
+        this.updateModal = modal;
+        this.regEvents();
+    }
+
+    regEvents(){
+        this.checkFocusAfterLoad(this.titleBox, this.labelTitle, "Title");
+        this.checkFocusAfterLoad(this.bodyBox, this.labelBody, "Body");
+
+        this.titleBox.addEventListener('input', (event)=>{
+            this.inputStart(event, this.labelTitle, "Title");
+        });
+        this.titleBox.addEventListener('blur', (event)=>{
+            this.inputStart(event, this.labelTitle, "Title");
+        });
+
+        this.bodyBox.addEventListener('input', (event)=>{
+            this.inputStart(event, this.labelBody, "Body");
+        });
+        this.bodyBox.addEventListener('blur', (event)=>{
+            this.inputStart(event, this.labelBody, "Body");
+        });
+
+        this.saveButton1.addEventListener('click', (event)=>{
+            this.getEntry(event);
+            this.checkEntry();
+            if(!this.errorInput) this.updateJournal();
+        });
+        this.saveButton2.addEventListener('click', (event)=>{
+            this.getEntry(event);
+            this.checkEntry();
+            if(!this.errorInput) this.updateJournal();
+        });
+    }
+
+    updateJournal(){
+        let jo = new Journals();
+        let i = this.updateModal.dataset.id;
+        let updatedData = jo.updateJournal(i, this.title, this.body);
+        this.hideShowAddBox("none", 'modifyJModal');
+        let v = new ViewAllJournalsHandler();
+        v.runUpdate(i, updatedData);
+    }
+}
+
 class ViewAllJournalsHandler{
     constructor(vBox, dBox){
-        this.viewBox = vBox;
-        this.detailBox = dBox;
+        if(!vBox && !dBox){
+            this.viewBox = document.getElementById('allJournalsBox');
+            this.detailBox = document.getElementById('detailContent');
+        }
+        else{
+            this.viewBox = vBox;
+            this.detailBox = dBox;
+        }
         this.userJournals = this.getJForUser();
     }
 
@@ -472,11 +533,11 @@ class ViewAllJournalsHandler{
 
                 let titleSpan = document.createElement('span');
                 titleSpan.className = 'jTitleSpan';
-                titleSpan.innerHTML = jonals[i]['title'];
+                titleSpan.innerHTML = jonals[i]['title'].substr(0, 50);
 
                 let bodySpan = document.createElement('span');
                 bodySpan.className = 'jBodySpan';
-                bodySpan.innerHTML = "&nbsp; - " + jonals[i]['body'];
+                bodySpan.innerHTML = "&nbsp; - " + jonals[i]['body'].substr(0, 63);
 
                 let dateSpan = document.createElement('span');
                 dateSpan.className = 'jDateSpan';
@@ -484,9 +545,26 @@ class ViewAllJournalsHandler{
                 let time = jonals[i]['time'].split(' ');
                 dateSpan.innerHTML = time[2] + " " + time[1];
 
+                let editImg = document.createElement('img');
+                let imgID = 'img' + i; 
+                editImg.className = 'jImg';
+                editImg.setAttribute('title', 'Edit journal');
+                editImg.setAttribute('id', imgID);
+                editImg.addEventListener('click', (event)=>{
+                    let j = this.getJForUser();
+                    document.getElementById('modifyJModal').dataset.id = i;
+                    document.getElementById('modifyLabelTitle').innerHTML = "Title";
+                    document.getElementById('modifyLabelBody').innerHTML = "Body";
+                    document.getElementById('modifyTitle').value = j[i]['title'];
+                    document.getElementById('modifyBody').value = j[i]['body'];
+                    document.getElementById('modifyJModal').style.display = "block";
+                });
+                editImg.src = "image/edit2.png";
+
                 jHolder.appendChild(checkBox);
                 jHolder.appendChild(titleSpan);
                 jHolder.appendChild(bodySpan);
+                jHolder.appendChild(editImg);
                 jHolder.appendChild(dateSpan);
                 allJholder.appendChild(jHolder);
             }
@@ -512,7 +590,7 @@ class ViewAllJournalsHandler{
         jHolder.dataset.id = n;
         jHolder.className = 'jHolder';
         jHolder.addEventListener('click',(event)=>{
-            this.showContentDetails(event);
+            this.showContentDetails(event, n);
         });
 
         let checkBox = document.createElement('input');
@@ -520,11 +598,11 @@ class ViewAllJournalsHandler{
 
         let titleSpan = document.createElement('span');
         titleSpan.className = 'jTitleSpan';
-        titleSpan.innerHTML = jonals[n]['title'];
+        titleSpan.innerHTML = jonals[n]['title'].substr(0, 50);
 
         let bodySpan = document.createElement('span');
         bodySpan.className = 'jBodySpan';
-        bodySpan.innerHTML = "&nbsp; - " + jonals[n]['body'];
+        bodySpan.innerHTML = "&nbsp; - " + jonals[n]['body'].substr(0, 63);
 
         let dateSpan = document.createElement('span');
         dateSpan.className = 'jDateSpan';
@@ -532,9 +610,24 @@ class ViewAllJournalsHandler{
         let time = jonals[n]['time'].split(' ');
         dateSpan.innerHTML = time[2] + " " + time[1];
 
+        let editImg = document.createElement('img');
+        editImg.className = 'jImg';
+        editImg.setAttribute('title', 'Edit journal');
+        let imgID = 'img' + n;
+        editImg.setAttribute('id', imgID);
+        editImg.addEventListener('click', (event)=>{
+            let j = this.getJForUser();
+            document.getElementById('modifyJModal').dataset.id = n;
+            document.getElementById('modifyTitle').value = j[n]['title'];
+            document.getElementById('modifyBody').value = j[n]['body'];
+            document.getElementById('modifyJModal').style.display = "block";
+        });
+        editImg.src = "image/edit2.png";
+
         jHolder.appendChild(checkBox);
         jHolder.appendChild(titleSpan);
         jHolder.appendChild(bodySpan);
+        jHolder.appendChild(editImg);
         jHolder.appendChild(dateSpan);
         if(n != 0){
             allJholder.insertBefore(jHolder, allJholder.childNodes[0]);
@@ -546,7 +639,8 @@ class ViewAllJournalsHandler{
     }
 
     showContentDetails(e, i){
-        if(e.target.type != "checkbox"){
+        this.userJournals = this.getJForUser();
+        if(e.target.tagName != "CHECKBOX" && e.target.tagName != "IMG"){
             let backButton = document.getElementById('backButton');
             let addJButton = document.getElementById('addJButton');
             let titleDetailBox = document.getElementById('titleDetail');
@@ -555,7 +649,9 @@ class ViewAllJournalsHandler{
             let jCount = document.getElementById('jCount');
 
             jCount.innerHTML = (1 + i) + "/" + this.userJournals.length;
-            timeDetailBox.innerHTML = this.userJournals[i].time;
+            if(this.userJournals[i]['updated'])
+                timeDetailBox.innerHTML = "Last updated: "+ this.userJournals[i].time;
+            else timeDetailBox.innerHTML = "Created on: " + this.userJournals[i].time;
             titleDetailBox.innerHTML = this.userJournals[i].title;
             bodyDetailBox.innerHTML = this.userJournals[i].body;
 
@@ -565,6 +661,15 @@ class ViewAllJournalsHandler{
             backButton.style.display = 'block';
             this.detailBox.style.display = 'block';
         }
+    }
+
+    runUpdate(i, data){
+        ++i;
+        let n = this.userJournals.length - i;
+        let jbox = this.viewBox.children[0].children[n];
+        jbox.children[1].innerHTML = data['title'].substr(0, 50);
+        jbox.children[2].innerHTML = "&nbsp; - " + data['body'].substr(0, 63);
+        jbox.children[3].innerHTML = data['time'];
     }
 }
 
@@ -597,12 +702,22 @@ class DetailViewHandler{
     }
 }
 
-function showAddBox(show){
-    let jBox = document.getElementById('addJModal');
+function showAddBox(show, box){
+    let jBox = document.getElementById(box);
     jBox.style.display = show;
 }
 
-function signOut(e){
+function showHideMobileMenu(menu){
+    let menuDiv = document.getElementById(menu);
+    if(menuDiv.style.display == "" || menuDiv.style.display == "none"){
+        menuDiv.style.display = 'block';
+    }
+    else{
+        menuDiv.style.display = "none";
+    }
+}
+
+function signOut(){
     localStorage.removeItem('logedUser');
     if(!localStorage.logedUser)
         location.replace("index.html");
@@ -624,8 +739,17 @@ function desidePageIndex(){
     let saveButton2 = document.getElementById('saveButton2');
     let addLabel1 = document.getElementById('addLabelTitle');
     let addLabel2 = document.getElementById('addLabelBody');
-    let allJViewBox = document.getElementById('allJournalsBox');
 
+    let modifyJModal = document.getElementById('modifyJModal');
+    let closeModifyBoxButton = document.getElementById('closeModifyBox');
+    let modifyTextTitle = document.getElementById('modifyTitle');
+    let modifyTextBody = document.getElementById('modifyBody');
+    let modifyButton1 = document.getElementById('modifyButton1');
+    let modifyButton2 = document.getElementById('modifyButton2');
+    let modifyLabel1 = document.getElementById('modifyLabelTitle');
+    let modifyLabel2 = document.getElementById('modifyLabelBody');
+
+    let allJViewBox = document.getElementById('allJournalsBox');
     let backButton = document.getElementById('backButton');
     let detailBox = document.getElementById('detailContent');
     let titleDetailBox = document.getElementById('titleDetail');
@@ -633,6 +757,7 @@ function desidePageIndex(){
     let bodyDetailBox = document.getElementById('bodyDetail');
 
     let logOut = document.getElementById('signOutDesktop');
+    let logOut2 = document.getElementById('signOutMobile');
 
     if(localStorage.getItem('logedUser') != null){
         header1.style.display = "none";
@@ -644,18 +769,30 @@ function desidePageIndex(){
         let u = new User();
         new AddJournalHandler(addTextTitle, addTextBody, saveButton1, saveButton2, 
             addLabel1, addLabel2);
+        new ModifyJournalHandler(modifyJModal, modifyTextTitle, modifyTextBody, modifyButton1, modifyButton2, 
+            modifyLabel1, modifyLabel2);
         let jViewBox = new ViewAllJournalsHandler(allJViewBox, detailBox);
         new DetailViewHandler(detailBox, timeDetailBox, titleDetailBox, bodyDetailBox, backButton);
         let name = u.getUsersName(id);
         document.getElementById('nameDiv').innerHTML = name;
         jViewBox.populateViewBox();
+        
+        let menuDiv2 = document.getElementById('menuDiv2');
+        
+        menuDiv2.addEventListener('click', (event)=>{
+            showHideMobileMenu('mobileNav2');
+        });
 
         logOut.addEventListener('click', signOut);
+        logOut2.addEventListener('click', signOut);
         addJButton.addEventListener('click', (event)=>{
-            showAddBox("block");
+            showAddBox("block", "addJModal");
         });
         closeAddBoxButton.addEventListener('click', (event)=>{
-            showAddBox("none");
+            showAddBox("none", 'addJModal');
+        });
+        closeModifyBoxButton.addEventListener('click', (event)=>{
+            showAddBox('none', 'modifyJModal');
         });
     }
     else{
@@ -663,7 +800,31 @@ function desidePageIndex(){
         mainTag2.style.display = "none";
         header1.style.display = "inline-block";
         mainTag1.style.display = "inline-block";
+
+        let menuDiv1 = document.getElementById('menuDiv1');
+        menuDiv1.addEventListener('click', (event)=>{
+            showHideMobileMenu('mobileNav1');
+        });
     }
+}
+
+function desidePageSignIn(){
+    let menuDiv1 = document.getElementById('menuDiv1');
+    menuDiv1.addEventListener('click', (event)=>{
+        showHideMobileMenu('mobileNav1');
+    });
+    const signInForm = new SignInForm();
+    signInForm.initProps();
+    
+}
+
+function desidePageSignUp(){
+    let menuDiv1 = document.getElementById('menuDiv1');
+    menuDiv1.addEventListener('click', (event)=>{
+        showHideMobileMenu('mobileNav1');
+    });
+    const signUpForm = new SignUpForm();
+    signUpForm.initProps();
 }
 
 function setup(){
@@ -671,17 +832,14 @@ function setup(){
     let linkFile = location.href.substring(link, location.href.length);
     
     if(linkFile == "signin.html"){
-        signInForm.initProps();
+        desidePageSignIn();
     }
     else if(linkFile == "signup.html"){
-        signUpForm.initProps();
+        desidePageSignUp();
     }
     else if(linkFile == "index.html"){
         desidePageIndex();
     }
 }
-
-const signInForm = new SignInForm();
-const signUpForm = new SignUpForm();
 
 document.addEventListener('DOMContentLoaded', setup);

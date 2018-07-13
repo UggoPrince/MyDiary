@@ -21,8 +21,15 @@
             </div>
             <div class="nav" id="nav1">
                 <a href="signin.html" class="">Sign In <i class="fa fa-sign-in"></i></a>
-                <a href="signup.html" class="">Sign UP</a>
+                <a href="signup.html" class="">Sign UP <i class="fa fa-user-plus"></i></a>
             </div>
+            <div class="menuDiv" id="menuDiv1"><span>MENU</span></div>
+            <nav class="mobileNav" id="mobileNav1">
+                <ul>
+                        <li><a href="signin.html">Sign In <i class="fa fa-sign-in"></i></a></li>
+                        <li><a href="signup.html">Sign Up <i class="fa fa-user-plus"></i></a></li>
+                </ul>
+            </nav>
         </header>
         <!--end header 1-->
 
@@ -36,8 +43,17 @@
             </div>
             <div class="nav" id="nav1">
                 <a href="index.html" class="">Home <i class="fa fa-home"></i></a>
+                <a href="" class="">Profile</a>
                 <a href="" class="" id="signOutDesktop">Sign Out <i class="fa fa-sign-out"></i></a>
             </div>
+            <div class="menuDiv" id="menuDiv2"><span>MENU</span></div>
+            <nav class="mobileNav" id="mobileNav2">
+                <ul>
+                    <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
+                    <li><a>Profile</a></li>
+                    <li><a id="signOutMobile">Sign Out <i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </nav>
         </header>
         <!--end header 2-->
 
@@ -89,7 +105,9 @@
             </div>
         </main>
         <!--end main body 2-->
-        <div class="addJModal" id="addJModal">
+
+        <!--Add-Journal modal box to enable an entry of a journal-->
+        <div class="jModals" id="addJModal">
             <div id="addJournalBox">
                 <div class="addBoxButtonsDiv">
                     <span>Add Journal</span>
@@ -108,6 +126,31 @@
                 </div>
                 <div class="addBoxButtonsDiv">
                     <button class="save" id="saveButton2">save</button>
+                </div>
+            </div>
+        </div>
+        <!--End add-modal-box -->
+
+        <!--Modify box to enable modification of a journal-->
+        <div class="jModals" id="modifyJModal">
+            <div id="addJournalBox">
+                <div class="addBoxButtonsDiv">
+                    <span>Update Journal</span>
+                    <button class="close" id="closeModifyBox">&times;</button>
+                    <button class="save" id="modifyButton1">update</button>
+                </div>
+                <div class="addBoxBody">
+                    <p>
+                        <label id="modifyLabelTitle"></label>
+                        <textarea class="inputTitle" placeholder="Title" id="modifyTitle"></textarea>
+                    </p>
+                    <p>
+                        <label id="modifyLabelBody"></label>
+                        <textarea class="inputBody" placeholder="Body" id="modifyBody"></textarea>
+                    </p>
+                </div>
+                <div class="addBoxButtonsDiv">
+                    <button class="save" id="modifyButton2">update</button>
                 </div>
             </div>
         </div>
