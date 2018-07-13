@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyDiary - Sign in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/main.js"></script>
+    <script>
+        if(localStorage.getItem('logedUser')) location.replace("index.html");
+    </script>
+</head>
+<body>
+    <div class="container">
+            <header class="header" id="indexHeader1">
+                    <div id="logoDiv">
+                        <a href="index.html">
+                        <img src="image/diary.png" />
+                        <span>Diary App</span>
+                        </a>
+                    </div>
+                    <div class="nav" id="nav1">
+                        <a href="index.html" class="">Home <i class="fa fa-home"></i></a>
+                        <a href="signup.html" class="">Sign Up</a>
+                    </div>
+                    <div class="menuDiv" id="menuDiv1"><span>MENU</span></div>
+                    <nav class="mobileNav" id="mobileNav1">
+                        <ul>
+                            <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
+                            <li><a href="signup.html">Sign Up <i class="fa fa-user-plus"></i></a></li>
+                        </ul>
+                    </nav>
+                </header>
+        
+        <main class="indexMain" id="indexMain1">
+                <form class="signForm" id="signinForm" name="signinForm" method="POST">
+                        <!--<div id="logoDiv">
+                                <a href="index.html">
+                                <img src="image/diary.jpg" />
+                                <span>MyDiary</span>
+                                </a>
+                            </div>-->
+                    <h2>Sign In</h2>
+                    <p>
+                        <label id="signinEmailLabel"></label>
+                        <input type="email" id="signinEmail" name="signinEmail" placeholder="Email" />
+                    </p>
+                    <p>
+                        <label id="signinPassLabel"></label>
+                        <input type="password" id="signinPass" name="signinPass" placeholder="Password" />
+                    </p>
+                        
+                    <div class="signFormErrDiv" id="signinErrorDiv"></div>
+                    <p id="lastP">
+                        <a href="signup.html">Create account</a><input type="submit" value="Sign In" />
+                    </p>
+                </form>
+        </main>
+    </div>
+</body>
+</html>

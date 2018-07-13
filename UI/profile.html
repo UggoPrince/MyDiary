@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyDiary - Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/main.js"></script>
+    <script>
+        if(!localStorage.getItem('logedUser')) location.replace("index.html");
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <!--This header displays when you are not signed in-->
+            <!--end header 1-->
+
+        <header class="header" id="indexHeader1">
+            <div id="logoDiv">
+                <a href="index.html">
+                <img src="image/diary.png" />
+                <span>Diary App</span>
+                </a>
+            </div>
+            <div class="nav" id="nav1">
+                <a href="index.html" class="">Home <i class="fa fa-home"></i></a>
+                <a href="" class="" id="signOutDesktop">Sign Out <i class="fa fa-sign-out"></i></a>
+            </div>
+            <div class="menuDiv" id="menuDiv1"><span>MENU</span></div>
+            <nav class="mobileNav" id="mobileNav1">
+                <ul>
+                    <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
+                    <li><a id="signOutMobile">Sign Out <i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="indexMain">
+            <div class="allJournals">
+                <div class="journalHeader">
+                        <div class="nameDiv" id="nameDiv"></div>
+                        <div>
+                            <div class="jhDiv"><span id="jCount">0</span><span> - Journal(s)</span></div>
+                            <div class="jhDiv" id="addButtonDiv">
+                                <button id="addNotice">set notification <i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                </div>
+                <div class="allNotificationBox">
+                    <div class="allJHolder">
+                        <div class="jHolder">
+                            <input type="checkbox" />
+                            <span class="jTitleSpan">time</span>
+                            <span class="jBodySpan">message</span>
+                        </div>
+                        <div class="jHolder">
+                            <input type="checkbox" />
+                            <span class="jTitleSpan">2018/06/15 7:00am</span>
+                            <span class="jBodySpan">get up early</span>
+                        </div>
+                        <div class="jHolder">
+                            <input type="checkbox" />
+                            <span class="jTitleSpan">2018/06/20 12:00am</span>
+                            <span class="jBodySpan">write some code!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="jModals" id="noticeFormDiv">
+        <form class="setNotificationForm" id="addNoticeForm" name="noticeForm" method="POST" action="">
+            <div class="addBoxButtonsDiv">
+                    <span><b> Set Notification</b></span>
+                    <button class="close" id="closeSetBox">&times;</button>
+                    <input type="submit" class="save" id="setButton1" value="Set" />
+            </div>
+            <p>
+                <label>Set Time</label>
+                <input type="date" name="time" />
+            </p>
+            <p>
+                <label>Notification Message</label>
+                <textarea name="message"></textarea>
+            </p>
+            <div class="addBoxButtonsDiv">
+                <button class="save" id="setButton2">set</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    
+</body>
+</html>

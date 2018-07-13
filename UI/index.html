@@ -1,0 +1,159 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MyDiary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!--This header displays when you are not signed in-->
+        <header class="header" id="indexHeader1">
+            <div id="logoDiv">
+                <a href="index.html">
+                <img src="image/diary.png" />
+                <span>Diary App</span>
+                </a>
+            </div>
+            <div class="nav" id="nav1">
+                <a href="signin.html" class="">Sign In <i class="fa fa-sign-in"></i></a>
+                <a href="signup.html" class="">Sign UP <i class="fa fa-user-plus"></i></a>
+            </div>
+            <div class="menuDiv" id="menuDiv1"><span>MENU</span></div>
+            <nav class="mobileNav" id="mobileNav1">
+                <ul>
+                        <li><a href="signin.html">Sign In <i class="fa fa-sign-in"></i></a></li>
+                        <li><a href="signup.html">Sign Up <i class="fa fa-user-plus"></i></a></li>
+                </ul>
+            </nav>
+        </header>
+        <!--end header 1-->
+
+        <!--This header displays when you have successfully signed in or signed up-->
+        <header class="header" id="indexHeader2">
+            <div id="logoDiv">
+                <a href="index.html">
+                <img src="image/diary.png" />
+                <span>Diary App</span>
+                </a>
+            </div>
+            <div class="nav" id="nav1">
+                <a href="index.html" class="">Home <i class="fa fa-home"></i></a>
+                <a href="profile.html" class="">Profile</a>
+                <a href="" class="" id="signOutDesktop">Sign Out <i class="fa fa-sign-out"></i></a>
+            </div>
+            <div class="menuDiv" id="menuDiv2"><span>MENU</span></div>
+            <nav class="mobileNav" id="mobileNav2">
+                <ul>
+                    <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a id="signOutMobile">Sign Out <i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </nav>
+        </header>
+        <!--end header 2-->
+
+        <!--This main body displays when your not sign in-->
+        <main class="indexMain" id="indexMain1">
+            <div id="descSiteText">
+                <!--MyDiary is a tool to keep records of your daily events and emotions, keep track of miles
+                stones and good times, or even record your dreams and ideas in a journal. MyDiary has you covered.-->
+                Daily events, your miles stones and good times, even dreams and ideas in a Journal.<br>
+                MyDiary has you covered everywhere.
+            </div>
+            <div id="descSiteImg">
+                <div class="descSiteImgDiv" id="descSiteImgDiv1"></div>
+                <div class="descSiteImgDiv" id="descSiteImgDiv2"></div>
+                <div class="descSiteImgDiv" id="descSiteImgDiv3"></div>
+                <div class="descSiteImgDiv" id="descSiteImgDiv4"></div>
+                <div class="descSiteImgDiv" id="descSiteImgDiv5"></div>
+                <div class="descSiteImgDiv" id="descSiteImgDiv6"></div>                
+            </div>
+            <div id="descSiteRegLink">
+                <a href="signup.html">Get Started</a>
+            </div>
+        </main>
+        <!--end main body 1-->
+
+        <!--This main body displays when you have signed in-->
+        <main class="indexMain" id="indexMain2">
+            <div class="allJournals" id="allJournals">
+                <div class="journalHeader">
+                    <div class="nameDiv" id="nameDiv"></div>
+                    <div>
+                        <div class="jhDiv"><span id="jCount">0</span><span> - Journal(s)</span></div>
+                        <div class="jhDiv" id="addButtonDiv">
+                            <button id="backButton">Back</button>
+                            <button id="addJButton">write <i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="allJournalsBox" id="allJournalsBox">
+
+                </div>
+                <div class="detailContent" id="detailContent">
+                    <div id="title_and_time">
+                        <span id="timeDetail"></span>
+                        <span id="titleDetail"></span>
+                    </div>
+                    <div id="bodyDetail"></div>
+                </div>
+            </div>
+        </main>
+        <!--end main body 2-->
+
+        <!--Add-Journal modal box to enable an entry of a journal-->
+        <div class="jModals" id="addJModal">
+            <div id="addJournalBox">
+                <div class="addBoxButtonsDiv">
+                    <span>Add Journal</span>
+                    <button class="close" id="closeAddBox">&times;</button>
+                    <button class="save" id="saveButton1">save</button>
+                </div>
+                <div class="addBoxBody">
+                    <p>
+                        <label id="addLabelTitle"></label>
+                        <textarea class="inputTitle" placeholder="Title" id="addTitle"></textarea>
+                    </p>
+                    <p>
+                        <label id="addLabelBody"></label>
+                        <textarea class="inputBody" placeholder="Body" id="addBody"></textarea>
+                    </p>
+                </div>
+                <div class="addBoxButtonsDiv">
+                    <button class="save" id="saveButton2">save</button>
+                </div>
+            </div>
+        </div>
+        <!--End add-modal-box -->
+
+        <!--Modify box to enable modification of a journal-->
+        <div class="jModals" id="modifyJModal">
+            <div id="addJournalBox">
+                <div class="addBoxButtonsDiv">
+                    <span>Update Journal</span>
+                    <button class="close" id="closeModifyBox">&times;</button>
+                    <button class="save" id="modifyButton1">update</button>
+                </div>
+                <div class="addBoxBody">
+                    <p>
+                        <label id="modifyLabelTitle"></label>
+                        <textarea class="inputTitle" placeholder="Title" id="modifyTitle"></textarea>
+                    </p>
+                    <p>
+                        <label id="modifyLabelBody"></label>
+                        <textarea class="inputBody" placeholder="Body" id="modifyBody"></textarea>
+                    </p>
+                </div>
+                <div class="addBoxButtonsDiv">
+                    <button class="save" id="modifyButton2">update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
