@@ -827,6 +827,59 @@ function desidePageSignUp(){
     signUpForm.initProps();
 }
 
+function desidePageProfile(){
+    let menuDiv1 = document.getElementById('menuDiv1');
+    menuDiv1.addEventListener('click', (event)=>{
+        showHideMobileMenu('mobileNav1');
+    });
+    let logOut = document.getElementById('signOutDesktop');
+    let logOut2 = document.getElementById('signOutMobile');
+    logOut.addEventListener('click', signOut);
+    logOut2.addEventListener('click', signOut);
+    let header2 = document.getElementById('indexHeader1');
+    header2.style.display = "inline-block";
+
+    let addNoticeButton = document.getElementById('addNotice');
+    let noticeModal = document.getElementById('noticeFormDiv');
+
+    addNoticeButton.addEventListener('click', ()=>{
+        noticeModal.style.display = 'block';
+    });
+    
+    new NotificationHandler();
+}
+
+class NotificationHandler{
+    constructor(){
+        this.userJournals = new ViewAllJournalsHandler().getJForUser();
+        this.jCount = this.userJournals.length;
+        this.addNoticeForm = document.getElementById('addNoticeForm');
+        this.noticeModal = document.getElementById('noticeFormDiv');
+        this.closeButton = document.getElementById('closeSetBox');
+        this.regEvents();
+    }
+
+    regEvents(){
+        document.getElementById('jCount').innerHTML = this.jCount;
+        this.addNoticeForm.addEventListener('submit', (event)=>{
+            event.preventDefault();
+            this.setNotification(event);
+        });
+        this.closeButton.addEventListener('click', (event)=>{
+            this.noticeModal.style.display = 'none';
+        });
+    }
+
+    getNotifications(){};
+
+    setNotification(e){
+        let target = e.target;
+        //if(target.time.value.length != 0 || target.message.value.length != 0)
+        alert(target.time.value + " : " + target.message.value);
+        this.noticeModal.style.display = 'none';
+    };
+}
+
 function setup(){
     let link = location.href.lastIndexOf("/") + 1;
     let linkFile = location.href.substring(link, location.href.length);
@@ -839,6 +892,9 @@ function setup(){
     }
     else if(linkFile == "index.html"){
         desidePageIndex();
+    }
+    else if(linkFile == "profile.html"){
+        desidePageProfile();
     }
 }
 
