@@ -890,7 +890,7 @@ function setup(){
     else if(linkFile == "signup.html"){
         desidePageSignUp();
     }
-    else if(linkFile == "index.html"){
+    else if(linkFile == "index.html" || linkFile == ""){
         desidePageIndex();
     }
     else if(linkFile == "profile.html"){
