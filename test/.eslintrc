@@ -1,6 +1,6 @@
 {
     "env": {
         "node":true,
-        "macha": true
+        "mocha": true
     }
 }
