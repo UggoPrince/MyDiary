@@ -4,7 +4,4 @@ node_js:
   - "node"
 env:
   - NODE_ENV=TEST
-cache:
-  directories:
-    - "node_modules"
 after_success: npm run coverage
