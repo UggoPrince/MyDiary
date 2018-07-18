@@ -1,27 +1,25 @@
 class Entries{
     constructor(){
-        this.user = null;
-        this.diary = null;
         this.entries = this.getEntries();
     }
 
-    getDiary(){
-        return this.diary;
+    getDiary(id){
+        return this.entries[id - 1];
     }
 
     checkUserEntries(id){
         for(let en of this.entries){
             if(id == en.userId) {
-                this.diary = en;
-                return true;
+                return en.posID;
             }
         }
-        return false;
+        return -1;
     }
 
     getEntries(){
         const entries = [
             {
+                "posID":1,
                 "userId":3,
                 "entries":[
                     {
@@ -44,6 +42,7 @@ class Entries{
                 "Total":2
             },
             {
+                "posID":2,
                 "userId":1,
                 "entries":[
                     {
@@ -75,6 +74,7 @@ class Entries{
                 "Total":3
             },
             {
+                "posID":3,
                 "userId":4,
                 "entries":[
                     {
@@ -97,6 +97,7 @@ class Entries{
                 "Total":2
             },
             {
+                "posID":4,
                 "userId":2,
                 "entries":[
                     {
@@ -124,7 +125,12 @@ class Entries{
                 ],
                 "Total":3
             }
-            
+            /*{
+                "posID":5,
+                "userId":5,
+                "entries":[],
+                "Total":0
+            }*/
         ];
         return entries;
     }

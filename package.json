@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node -- index",
-    "test": "_mocha --require babel-core/register ./test/*",
-    "coverage": "nyc report --reporter=text-Icov | coveralls",
+    "test": "cross-env NODE_ENV=test nyc _mocha --require babel-core/register ./test/*",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint index.js"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "chai-http": "^4.0.0",
     "coffeescript": "^2.3.1",
     "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-airbnb-base": "^13.0.0",
@@ -45,8 +46,20 @@
     "isparta": "^4.1.0",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.18.2",
     "nyc": "^12.0.2",
     "request": "^2.87.0"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }

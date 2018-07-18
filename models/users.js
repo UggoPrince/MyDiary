@@ -1,7 +1,6 @@
 class Users{
     constructor(){
         this.allUsers = this.getUsers();
-        this.user = null;
     }
 
     checkUser(id){
@@ -14,8 +13,14 @@ class Users{
         return false;
     }
 
-    getUser(){
-        return this.user;
+    getUser(id){
+        if(id <= this.allUsers.length && id > 0){
+            let i = id - 1;
+            return this.allUsers[i];
+        }
+        else{
+            return null;
+        }
     }
 
     getUsers(){
@@ -47,6 +52,13 @@ class Users{
                 "password":"uzohjkl",
                 "fisrtname":"Uzochukwu",
                 "lastname":"Okoro"
+            },
+            {
+                "userId":5,
+                "email":"tochi@gmail.com",
+                "password":"tochi556",
+                "fisrtname":"Tochi",
+                "lastname":"Kenedy"
             }
         ];
         return users;
