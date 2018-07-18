@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node -- index",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint"
+    "test": "cross-env NODE_ENV=test nyc _mocha --require babel-core/register ./test/*",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint index.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +36,16 @@
     "eslint-plugin-react": "^7.10.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.2"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
