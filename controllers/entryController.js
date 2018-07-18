@@ -12,6 +12,7 @@ const myEntries = new Diary();
 
 function getEntries (req, res){
     let isUserID = isNaN(req.params.userId);
+    let isEntryID = isNaN(req.params.entryId);
     let userID = req.params.userId;
 
     if(!isUserID){

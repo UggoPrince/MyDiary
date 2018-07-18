@@ -1,7 +1,7 @@
 import express from "express";
-import entries from "../controllers/entriesController";
+import entry from "../controllers/entryController";
 const router = express.Router();
 
-router.get("/:userId/entries", entries);
+router.get("/:userId/entries/:entryId", entry);
 
 export default router;
