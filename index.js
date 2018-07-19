@@ -9,5 +9,6 @@ app.use((req, res)=>{
     res.status(404).json("Not Found");
 });
 
-app.set("port", process.env.PORT || 3000);
-export default app;
+app.listen(4000);
+//app.set("port", process.env.PORT || 3000);
+//export default app;
