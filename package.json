@@ -4,7 +4,7 @@
   "description": "https://travis-ci.org/UggoPrince/MyDiary.svg?branch=master",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/server.js",
+    "start": "babel-node -- index.js",
     "test": "cross-env NODE_ENV=test nyc _mocha --require babel-core/register ./test/*",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint index.js",
