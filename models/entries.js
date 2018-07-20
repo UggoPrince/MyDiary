@@ -32,6 +32,18 @@ class Entries{
         return this.entries[allEntries - 1];
     }
 
+    modifyEntry(posID, entryID, data){
+        this.entries[posID - 1]["entries"][entryID - 1] = data;
+        return this.entries[posID - 1]["entries"][entryID - 1];
+    }
+
+    /*deleteEntry(posID, entryID){
+        let deleted = this.entries[posID - 1]["entries"][entryID - 1];
+        delete this.entries[posID - 1]["entries"][entryID - 1];
+        if(this.entries[posID - 1].Total != 0) this.entries[posID - 1].Total;
+        return deleted;
+    }*/
+
     checkTotalEntry(id){
         if(this.entries[id-1]){
             return this.entries[id-1]["Total"];
