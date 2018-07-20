@@ -1,8 +1,8 @@
 import express from "express";
-import router from "./routes/users";
+import userRouter from "./routes/users";
 const app = express();
 
-app.use("/api/v1/users", router);
+app.use("/api/v1/users", userRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res)=>{
@@ -17,5 +17,5 @@ app.use((req, res)=>{
     res.status(err.status || 500).json(err.message);
 });*/
 
-app.set("port", process.env.PORT || 3000);
+app.listen(4000);
 export default app;

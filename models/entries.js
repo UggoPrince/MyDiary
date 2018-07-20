@@ -7,6 +7,18 @@ class Entries{
         return this.entries[id - 1];
     }
 
+    getEntry(posID, entryID){
+        let entries = this.getDiary(posID);
+        return entries["entries"][entryID-1];
+    }
+
+    checkTotalEntry(id){
+        if(this.entries[id-1]){
+            return this.entries[id-1]["Total"];
+        }
+        else return null;
+    }
+
     checkUserEntries(id){
         for(let en of this.entries){
             if(id == en.userId) {
