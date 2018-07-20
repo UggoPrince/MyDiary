@@ -8,7 +8,7 @@
     "test": "cross-env NODE_ENV=test nyc _mocha --require babel-core/register ./test/*",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint index.js",
-    "heroku-build": "npx babel index/ --out-dir / --ignore ./test"
+    "heroku-build": "npx babel index.js --out-dir / --ignore ./test"
   },
   "repository": {
     "type": "git",
