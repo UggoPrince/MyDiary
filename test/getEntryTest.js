@@ -15,7 +15,7 @@ app.set("port", process.env.PORT || 3000);
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe("GET /api/v1/users/userId/entries/entryId", ()=>{
+describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
     describe("It should return an entry or error message telling you its not found", ()=>{
         it("It should return entry 1 for user with id-2", (done)=>{
             chai.request(app)
