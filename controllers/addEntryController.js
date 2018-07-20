@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import request from "request";
 import Users from "../models/users";
 import Diary from "../models/entries";
 

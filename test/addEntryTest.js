@@ -17,7 +17,6 @@ app.set("port", process.env.PORT || 3000);
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-const deUser = new Users();
 const myEntries = new Diary();
 
 describe("POST /api/v1/users/:userId/entries/", ()=>{
