@@ -12,6 +12,26 @@ class Entries{
         return entries["entries"][entryID-1];
     }
 
+    addEntry(posID, entry){
+        let total = this.checkTotalEntry(posID);
+        this.entries[posID - 1][total - 1] = entry;
+        ++this.entries[posID - 1].Total;
+        return this.entries[posID - 1][total - 1];
+    }
+
+    addNewEntry(userID, entry){
+        let allEntries = this.entries.length;
+        let newEntry = {
+            "posID":allEntries,
+            "userID":userID,
+            "entries":[],
+            "Total":1
+        };
+        newEntry.entries.push(entry);
+        this.entries[allEntries-1] = newEntry;
+        return this.entries[allEntries - 1];
+    }
+
     checkTotalEntry(id){
         if(this.entries[id-1]){
             return this.entries[id-1]["Total"];
