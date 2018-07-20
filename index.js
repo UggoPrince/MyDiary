@@ -17,5 +17,4 @@ app.use((req, res)=>{
     res.status(err.status || 500).json(err.message);
 });*/
 
-app.set("port", process.env.PORT || 3000);
-export default app;
+app.listen(4000);
