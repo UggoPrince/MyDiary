@@ -1,7 +1,6 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
-import Users from "../models/users";
 import Diary from "../models/entries";
 import router from "../routes/users";
 const app = express();

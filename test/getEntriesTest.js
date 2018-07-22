@@ -95,7 +95,7 @@ describe("GET /api/v1/users/userId/entries", ()=>{
             });
     });
 
-    it("It should respond that such a user doesnt exist if non-integer characters a added to the userID or"+
+    it("It should respond that such a user doesnt exist if non-integer character(s) is added to the userID or"+
         " a negative integer", (done)=>{
         chai.request(app)
             .get("/api/v1/users/2f/entries")
