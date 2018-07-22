@@ -23,7 +23,7 @@ describe("Entries", ()=>{
         expect(entries.getEntries()).to.be.a("array");
     });
 
-    it("Entries.getDiary(2) should return an object having entrie(s) for a user with userID - 2,"+
+    it("Entries.getDiary(4) should return an object having entrie(s) for a user with userID - 2,"+
         " as long as the user has entrie(s)", ()=>{
             const myEntries = new Entries();
             let i = myEntries.checkUserEntries(2);

@@ -3,8 +3,8 @@ class Entries{
         this.entries = this.getEntries();
     }
 
-    getDiary(id){
-        return this.entries[id - 1];
+    getDiary(posID){
+        return this.entries[posID - 1];
     }
 
     getEntry(posID, entryID){
