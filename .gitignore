@@ -1,6 +1,5 @@
 package-lock.json
-/node_modules
-/UI
+node_modules/
 coverage
 .env
-/.vscode
+.vscode/
