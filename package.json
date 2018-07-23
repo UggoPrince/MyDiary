@@ -23,6 +23,7 @@
   "homepage": "https://github.com/UggoPrince/MyDiary#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "gemfile": "^1.0.0"
   },

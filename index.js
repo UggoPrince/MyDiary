@@ -10,8 +10,7 @@ app.use((req, res)=>{
     res.status(404).json("Not Found");
 });
 
-app.listen(port, ()=>{
-    console.log("App running on port " + port);
+app.listen(port, () => {
+    // eslint-disable-next-line
+    console.log(`App running on port  ${port}`);
 });
-//app.set("port", process.env.PORT || 3000);
-//export default app;
