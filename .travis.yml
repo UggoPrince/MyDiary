@@ -3,6 +3,8 @@ node_js:
   - "node"
 env:
   - NODE_ENV=TEST
+  global:
+  - CC_TEST_REPORTER_ID=39f5e52c659b3404a6cb86bfc697ef8255bc7b45dd3deb60c351756aae89852f
 cache:
   directories:
     - "node_modules"
