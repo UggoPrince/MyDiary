@@ -29,6 +29,17 @@ describe("Notifications", ()=>{
         });
     });
 
+    describe("Notifications.checkTotalNotify(posId) gets the total notifications", ()=>{
+        it("It should return the total notifications for a user if the user has set" +
+            " at least one notification", ()=>{
+                expect(notifies.checkTotalNotify(1)).to.be.a("number");
+            });
+        it("It should return null if the user has made no entry", ()=>{
+            expect(notifies.checkTotalNotify(5)).to.be.eql(null);
+        });
+        }
+    );
+
     describe("Notifications.getNotifications()", ()=>{
         it("Notifies.getNotifications() returns an array containg notifications of users", ()=>{
             expect(notifies.getNotifications()).to.be.a("array");

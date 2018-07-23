@@ -28,7 +28,7 @@ describe("GET /api/v1/users/userId/notifications", ()=>{
                             "reminders":[
                                 {
                                     "id":1,
-                                    "Body":"You're node.js class is starting today by 2pm!",
+                                    "Body":"Your node.js class is starting today by 2pm!",
                                     "timeCreated": "10/07/2018 11:00am",
                                     "noticeTime": {
                                         year: "2018",
