@@ -12,6 +12,18 @@ class Notifications{
         return -1;
     }
 
+    checkTotalNotify(posID){
+        if(this.allNotice[posID-1]){
+            return this.allNotice[posID-1]["Total"];
+        }
+        else return null;
+    }
+
+    getNotify(posID, notifyID){
+        let notifications = this.getNoticeBook(posID);
+        return notifications["reminders"][notifyID - 1];
+    }
+
     getNoticeBook(posID){
         return this.allNotice[posID - 1];
     }
@@ -55,7 +67,7 @@ class Notifications{
                 "reminders":[
                     {
                         "id":1,
-                        "Body":"You're node.js class is starting today by 2pm!",
+                        "Body":"Your node.js class is starting today by 2pm!",
                         "timeCreated": "10/07/2018 11:00am",
                         "noticeTime": {
                             year: "2018",
