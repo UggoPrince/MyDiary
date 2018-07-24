@@ -3,43 +3,46 @@ class Entries{
         this.entries = this.getEntries();
     }
 
-    getDiary(posID){
-        return this.entries[posID - 1];
+    getDiary(i){
+        return this.entries[i];
     }
 
-    getEntry(posID, entryID){
-        let entries = this.getDiary(posID);
-        return entries["entries"][entryID-1];
+    getEntry(i, j){
+        let entries = this.getDiary(i);
+        return entries["entries"][j];
     }
 
-    addEntry(posID, entry){
-        let total = this.checkTotalEntry(posID);
-        this.entries[posID - 1][total - 1] = entry;
-        ++this.entries[posID - 1].Total;
-        return this.entries[posID - 1][total - 1];
+    addEntry(i, entry){
+        let total = this.checkTotalEntry(i);
+        this.entries[i][total] = entry;
+        ++this.entries[i].Total;
+        return this.entries[i][total];
     }
 
     addNewEntry(userID, entry){
         let allEntries = this.entries.length;
+        let posInArray = allEntries - 1;
+        let posID = 1;
         let newEntry = {
-            "posID":allEntries,
+            "posID":posID,
             "userID":userID,
             "entries":[],
             "Total":1
         };
         newEntry.entries.push(entry);
-        this.entries[allEntries-1] = newEntry;
-        return this.entries[allEntries - 1];
+
+        this.entries[posInArray] = newEntry;
+        return newEntry.entries;
     }
 
-    modifyEntry(posID, entryID, data){
-        this.entries[posID - 1]["entries"][entryID - 1] = data;
-        return this.entries[posID - 1]["entries"][entryID - 1];
+    modifyEntry(i, j, data){
+        this.entries[i]["entries"][j] = data;
+        return this.entries[i]["entries"][j];
     }
 
-    checkTotalEntry(id){
-        if(this.entries[id-1]){
-            return this.entries[id-1]["Total"];
+    checkTotalEntry(i){
+        if(this.entries[i]){
+            return this.entries[i]["Total"];
         }
         else return null;
     }

@@ -12,20 +12,20 @@ class Notifications{
         return -1;
     }
 
-    checkTotalNotify(posID){
-        if(this.allNotice[posID-1]){
-            return this.allNotice[posID-1]["Total"];
+    checkTotalNotify(i){
+        if(this.allNotice[i]){
+            return this.allNotice[i]["Total"];
         }
         else return null;
     }
 
-    getNotify(posID, notifyID){
-        let notifications = this.getNoticeBook(posID);
-        return notifications["reminders"][notifyID - 1];
+    getNotify(i, j){
+        let notifications = this.getNoticeBook(i);
+        return notifications["reminders"][j];
     }
 
-    getNoticeBook(posID){
-        return this.allNotice[posID - 1];
+    getNoticeBook(i){
+        return this.allNotice[i];
     }
 
     getNotifications(){

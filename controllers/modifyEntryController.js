@@ -18,8 +18,12 @@ function modifyEntry(req, res){
             if(deUser.checkUser(userID)){
                 let isEntriesExist = myEntries.checkUserEntries(userID);
                 if(isEntriesExist != -1){
+
+                    --isEntriesExist; // reduce it to its position in the this.entries array of Diary.
                     let total = myEntries.checkTotalEntry(isEntriesExist);
+                    
                     if(total >= entryID){
+
                         let dataUpdate = {
                             "id":entryID,
                             "Title":"When the day goes well",
@@ -28,6 +32,9 @@ function modifyEntry(req, res){
                             "Time":new Date().toString(),
                             "Updated":true
                         };
+
+                        --entryID // reduce it to its position in the this.entries["entries"] array of Diary.
+
                         let modified = myEntries.modifyEntry(isEntriesExist, entryID, dataUpdate);
                         let packet = {
                             meta:{},

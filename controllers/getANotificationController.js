@@ -18,9 +18,13 @@ function getANotification(req, res){
             if(deUser.checkUser(userID)){
                 let isNotifyExist = notifies.checkUserNotifies(userID);
                 if(isNotifyExist != -1){
+
+                    --isNotifyExist // reduce it to its position in the this.allNotice["reminders"] array of Notifications.
                     let totalEntry = notifies.checkTotalNotify(isNotifyExist);
 
                     if(totalEntry >= notifyID){
+
+                        --notifyID // reduce it to its position in the this.allNotice["reminders"][i] array of Notifications.
                         let entry = notifies.getNotify(isNotifyExist, notifyID);
                         let packet = {
                             meta:{},

@@ -23,6 +23,8 @@ function addEntry(req, res){
         if(deUser.checkUser(userID)){
             let isEntriesExist = myEntries.checkUserEntries(userID);
             if(isEntriesExist != -1){
+                
+                --isEntriesExist; // reduce it to its position in the this.entries array in Diary.
                 let total = myEntries.checkTotalEntry(isEntriesExist);
                 req.body = {
                     "id":total + 1,

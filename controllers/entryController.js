@@ -18,9 +18,12 @@ function getEntries (req, res){
             if(deUser.checkUser(userID)){
                 let isEntriesExist = myEntries.checkUserEntries(userID);
                 if(isEntriesExist != -1){
+
+                    --isEntriesExist; // reduce it to its position in the this.entries array of Diary.
                     let totalEntry = myEntries.checkTotalEntry(isEntriesExist);
 
                     if(totalEntry >= entryID){
+                        --entryID // reduce it to its position in the this.entries["entries"] array of Diary.
                         let entry = myEntries.getEntry(isEntriesExist, entryID);
                         let packet = {
                             meta:{},

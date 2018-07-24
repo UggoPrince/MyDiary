@@ -13,6 +13,8 @@ function getNotifications(req, res){
         if(deUser.checkUser(userID)){
             let isNotifiesExist = notifies.checkUserNotifies(userID);
             if(isNotifiesExist != -1){
+
+                --isNotifiesExist // reduce it to its position in the this.allNotice["reminders"] array of Notifications.
                 let notices = notifies.getNoticeBook(isNotifiesExist);
                 let packet = {
                     meta:{},
