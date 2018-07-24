@@ -1,7 +1,13 @@
 import express from "express";
+import bodyParser from "body-parser";
 import usersRouter from "./routes/usersRouter";
+
 const app = express();
 let port = process.env.PORT || 4000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.json({type: "application/json"}));
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use("/api/v1/users", usersRouter);
 

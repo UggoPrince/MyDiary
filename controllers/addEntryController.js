@@ -1,12 +1,5 @@
-import express from "express";
-import bodyParser from "body-parser";
 import Users from "../models/users";
 import Diary from "../models/entries";
-
-const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.json({type: "application/json"}));
-app.use(bodyParser.urlencoded({extended:true}));
 
 const deUser = new Users();
 const myEntries = new Diary();
