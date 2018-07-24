@@ -37,13 +37,6 @@ class Entries{
         return this.entries[posID - 1]["entries"][entryID - 1];
     }
 
-    /*deleteEntry(posID, entryID){
-        let deleted = this.entries[posID - 1]["entries"][entryID - 1];
-        delete this.entries[posID - 1]["entries"][entryID - 1];
-        if(this.entries[posID - 1].Total != 0) this.entries[posID - 1].Total;
-        return deleted;
-    }*/
-
     checkTotalEntry(id){
         if(this.entries[id-1]){
             return this.entries[id-1]["Total"];
@@ -169,12 +162,6 @@ class Entries{
                 ],
                 "Total":3
             }
-            /*{
-                "posID":5,
-                "userId":5,
-                "entries":[],
-                "Total":0
-            }*/
         ];
         return entries;
     }

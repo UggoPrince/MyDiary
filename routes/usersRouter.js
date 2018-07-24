@@ -5,6 +5,7 @@ import addEntry from "../controllers/addEntryController";
 import modifyEntry from "../controllers/modifyEntryController";
 import getNotifies from "../controllers/getNotificationsController";
 import getNotify from "../controllers/getANotificationController.js";
+
 const router = express.Router();
 
 router.get("/:userId/entries/:entryId", entry);

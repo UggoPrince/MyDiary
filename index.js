@@ -1,9 +1,9 @@
 import express from "express";
-import router from "./routes/users";
+import usersRouter from "./routes/usersRouter";
 const app = express();
 let port = process.env.PORT || 4000;
 
-app.use("/api/v1/users", router);
+app.use("/api/v1/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res)=>{
