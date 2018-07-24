@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
-import router from "../routes/users";
+import router from "../routes/usersRouter";
 const app = express();
 
 app.use("/api/v1/users", router);
@@ -16,7 +16,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe("GET /api/v1/users/userId/entries", ()=>{
-    it("It should return entries for user with ID-2", (done)=>{
+    it("should return entries for user with ID-2", (done)=>{
         chai.request(app)
             .get("/api/v1/users/2/entries")
             .end((err, res)=>{
@@ -59,7 +59,7 @@ describe("GET /api/v1/users/userId/entries", ()=>{
             });
     });
 
-    it("It should tell the user to Add an entry if no entry is found", (done)=>{
+    it("should tell the user to Add an entry if no entry is found", (done)=>{
         chai.request(app)
             .get("/api/v1/users/5/entries")
             .end((err, res)=>{
@@ -95,7 +95,7 @@ describe("GET /api/v1/users/userId/entries", ()=>{
             });
     });
 
-    it("It should respond that such a user doesnt exist if non-integer character(s) is added to the userID or"+
+    it("should respond that such a user doesnt exist if non-integer character(s) is added to the userID or"+
         " a negative integer", (done)=>{
         chai.request(app)
             .get("/api/v1/users/2f/entries")
@@ -114,7 +114,7 @@ describe("GET /api/v1/users/userId/entries", ()=>{
             });
     });
 
-    it("It should tell the user that a wrong URL was entered", (done)=>{
+    it("should tell the user that a wrong URL was entered", (done)=>{
         chai.request(app)
             .get("/api/v/users/45") // wrong url!
             .end((err, res)=>{

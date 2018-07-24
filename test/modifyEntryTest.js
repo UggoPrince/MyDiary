@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
-import router from "../routes/users";
+import router from "../routes/usersRouter";
 import Diary from "../models/entries";
 const app = express();
 
@@ -24,7 +24,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
    describe("When the particular entry to be modified exist", ()=>{
-        it("It should return the modified entry with id 2 for user with id 2", (done)=>{
+        it("should return the modified entry with id 2 for user with id 2", (done)=>{
             chai.request(app)
                 .put("/api/v1/users/2/entries/2")
                 .send()
@@ -55,8 +55,8 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
         });
    });
 
-    describe("It should return an error message if the entry doesn't exist", ()=>{
-        it("It should return a feedback letting user know that entry with the id is not found in Diary", (done)=>{
+    describe("returns an error message if the entry doesn't exist", ()=>{
+        it("should return a feedback letting user know that entry with the id is not found in Diary", (done)=>{
             chai.request(app)
                 .put("/api/v1/users/2/entries/6")
                 .send()
@@ -77,7 +77,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
     describe("When the user has no entry yet", ()=>{
-        it("It should tell the user no entry found in Diary", (done)=>{
+        it("should tell the user no entry found in Diary", (done)=>{
             chai.request(app)
                 .put("/api/v1/users/5/entries/6")
                 .send()
@@ -98,7 +98,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
     describe("User with a specific id not found", ()=>{
-        it("It should return error message that the user doesn't exist", (done)=>{
+        it("should return error message that the user doesn't exist", (done)=>{
             chai.request(app)
                 .put("/api/v1/users/6/entries/6")
                 .send()
@@ -119,7 +119,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
     describe("when the entry id is a non positive integer", ()=>{
-        it("It should respond with an error message telling the user that the entry id is unapplicable", (done)=>{
+        it("should respond with an error message telling the user that the entry id is unapplicable", (done)=>{
             chai.request(app)
                 .put("/api/v1/users/6/entries/-2f")
                 .send()
@@ -140,7 +140,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
     describe("when the user id is a non positive integer", ()=>{
-        it("It should respond with an error message telling the user that the user id is unapplicable", (done)=>{
+        it("should respond with an error message telling the user that the user id is unapplicable", (done)=>{
             chai.request(app)
                 .put("/api/v1/users/g/entries/2")
                 .send()
@@ -161,7 +161,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
 
-    it("It should tell the user that a wrong URL was entered", (done)=>{
+    it("should tell the user that a wrong URL was entered", (done)=>{
         chai.request(app)
             .get("/api/v/users/45") // wrong url!
             .end((err, res)=>{

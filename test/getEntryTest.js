@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
-import router from "../routes/users";
+import router from "../routes/usersRouter";
 const app = express();
 
 app.use("/api/v1/users", router);
@@ -16,8 +16,8 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
-    describe("It should return an entry or error message telling you its not found", ()=>{
-        it("It should return entry 1 for user with id-2", (done)=>{
+    describe("should return an entry or error message telling you its not found", ()=>{
+        it("should return entry 1 for user with id-2", (done)=>{
             chai.request(app)
                 .get("/api/v1/users/2/entries/1")
                 .end((err, res)=>{
@@ -38,7 +38,7 @@ describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
                     done();
                 });
         });
-        it("It should return error responce for entry 4 for user with id-2 for its not existing there", (done)=>{
+        it("should return error responce for entry 4 for user with id-2 for its not existing there", (done)=>{
             chai.request(app)
                 .get("/api/v1/users/2/entries/4")
                 .end((err, res)=>{
@@ -57,8 +57,8 @@ describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
         });
     });
 
-    describe("It should tell the user make an entry if non is found", ()=>{
-        it("It should tell the user to Add an entry if no entry is found", (done)=>{
+    describe("should tell the user make an entry if non is found", ()=>{
+        it("should tell the user to Add an entry if no entry is found", (done)=>{
             chai.request(app)
                 .get("/api/v1/users/5/entries/1")
                 .end((err, res)=>{
@@ -98,7 +98,7 @@ describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
     describe("When the entryId parameter in the URL is not a positive integer", ()=>{
-        it("It should respond that such an entry doesnt exist", (done)=>{
+        it("should respond that such an entry doesnt exist", (done)=>{
             chai.request(app)
                 .get("/api/v1/users/2/entries/f")
                 .end((err, res)=>{
@@ -118,7 +118,7 @@ describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
     });
 
     describe("When the userId parameter in the URL is not a positive integer", ()=>{
-        it("It should respond that such a user doesnt exist if non-integer characters a added to the userID or"+
+        it("should respond that such a user doesnt exist if non-integer characters a added to the userID or"+
         " a negative integer", (done)=>{
         chai.request(app)
             .get("/api/v1/users/2f/entries/3")
@@ -138,7 +138,7 @@ describe("GET /api/v1/users/:userId/entries/:entryId", ()=>{
         });
     });
 
-    it("It should tell the user that a wrong URL was entered", (done)=>{
+    it("should tell the user that a wrong URL was entered", (done)=>{
         chai.request(app)
             .get("/api/v/users/45") // wrong url!
             .end((err, res)=>{

@@ -1,7 +1,7 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
-import router from "../routes/users";
+import router from "../routes/usersRouter";
 const app = express();
 
 app.use("/api/v1/users", router);
@@ -17,7 +17,7 @@ chai.use(chaiHttp);
 
 describe("GET /api/v1/users/userId/notifications", ()=>{
     describe("GET /api/v1/users/1/notifications", ()=>{
-        it("It should return notifications for user with ID-2", (done)=>{
+        it("should return notifications for user with ID-2", (done)=>{
             chai.request(app)
                 .get("/api/v1/users/1/notifications")
                 .end((err, res)=>{
@@ -76,7 +76,7 @@ describe("GET /api/v1/users/userId/notifications", ()=>{
     });
 
     describe("No notifications set for existing user", ()=>{
-        it("It should tell the user to Add a notification if no one is found", (done)=>{
+        it("should tell the user to Add a notification if no one is found", (done)=>{
             chai.request(app)
                 .get("/api/v1/users/5/notifications")
                 .end((err, res)=>{
@@ -116,7 +116,7 @@ describe("GET /api/v1/users/userId/notifications", ()=>{
     });
 
     describe("Non acceptable user ID", ()=>{
-        it("It should respond that such a user doesnt exist if non-integer character(s) is added to the userID or"+
+        it("should respond that such a user doesnt exist if non-integer character(s) is added to the userID or"+
         " a negative integer", (done)=>{
         chai.request(app)
             .get("/api/v1/users/2f/notifications")
@@ -137,7 +137,7 @@ describe("GET /api/v1/users/userId/notifications", ()=>{
     });
 
     describe("Wrong URL",()=>{
-        it("It should tell the user that a wrong URL was entered", (done)=>{
+        it("should tell the user that a wrong URL was entered", (done)=>{
             chai.request(app)
                 .get("/api/v/users/45") // wrong url!
                 .end((err, res)=>{

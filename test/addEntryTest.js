@@ -2,7 +2,7 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import express from "express";
 import Diary from "../models/entries";
-import router from "../routes/users";
+import router from "../routes/usersRouter";
 const app = express();
 
 app.use("/api/v1/users", router);
@@ -21,7 +21,7 @@ const myEntries = new Diary();
 describe("POST /api/v1/users/:userId/entries/", ()=>{
     describe("It should add an entry if a User exist", ()=>{
 
-        it("it should add an entry if the user has made at least one before", (done)=>{
+        it("should add an entry if the user has made at least one before", (done)=>{
             chai.request(app)
                 .post("/api/v1/users/3/entries/")
                 .send()
@@ -49,7 +49,7 @@ describe("POST /api/v1/users/:userId/entries/", ()=>{
                 });
         });
 
-        it("it should add an entry if the user hasn't made any", (done)=>{
+        it("should add an entry if the user hasn't made any", (done)=>{
             chai.request(app)
                 .post("/api/v1/users/5/entries/")
                 .send()
@@ -79,7 +79,7 @@ describe("POST /api/v1/users/:userId/entries/", ()=>{
     });
 
     describe("User don't exist", ()=>{
-        it("It should return an error message if a specific user is not found", (done)=>{
+        it("should return an error message if a specific user is not found", (done)=>{
             chai.request(app)
                 .post("/api/v1/users/6/entries/")
                 .send()
@@ -98,7 +98,7 @@ describe("POST /api/v1/users/:userId/entries/", ()=>{
                 });
         });
 
-        it("It should return an error message if a negative or non numeric userID is in the URL", (done)=>{
+        it("should return an error message if a negative or non numeric userID is in the URL", (done)=>{
             chai.request(app)
                 .post("/api/v1/users/2h/entries/")
                 .send()

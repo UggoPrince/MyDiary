@@ -18,11 +18,11 @@ describe("Entries", ()=>{
     );
 
     describe("Entries.checkTotalEntry(posId) gets the total entry", ()=>{
-        it("It should return the total entry for a user if the user has made" +
+        it("should return the total entry for a user if the user has made" +
             " at least one entry", ()=>{
                 expect(entries.checkTotalEntry(1)).to.be.a("number");
             });
-        it("It should return null if the user has made no entry", ()=>{
+        it("should return null if the user has made no entry", ()=>{
             expect(entries.checkTotalEntry(5)).to.be.eql(null);
         });
         }
@@ -42,10 +42,10 @@ describe("Entries", ()=>{
     );
 
     describe("Entries.getEntry(posID, entryID)", ()=>{
-            it("It should return an entry object", ()=>{
+            it("should return an entry object", ()=>{
                 expect(entries.getEntry(2, 1)).to.be.a("object");
             });
-            it("It should return an entry if the user has it", ()=>{
+            it("should return an entry if the user has it", ()=>{
                 let ent = {
                     "id":1,
                     "Title":"I had a dream",
