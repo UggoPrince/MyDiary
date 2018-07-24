@@ -41,9 +41,9 @@ describe("Entries", ()=>{
         }
     );
 
-    describe("Entries.getEntry(posID, entryID)", ()=>{
+    describe("Entries.getEntry(i, j)", ()=>{
             it("should return an entry object", ()=>{
-                expect(entries.getEntry(2, 1)).to.be.a("object");
+                expect(entries.getEntry(1, 0)).to.be.a("object");
             });
             it("should return an entry if the user has it", ()=>{
                 let ent = {
@@ -53,7 +53,7 @@ describe("Entries", ()=>{
                     "Time":"10/07/2018 11:00am",
                     "Updated":false
                 };
-                expect(entries.getEntry(2, 1)).to.be.eqls(ent);
+                expect(entries.getEntry(1, 0)).to.be.eqls(ent);
             });
         }
     );
@@ -69,6 +69,7 @@ describe("Entries", ()=>{
             " as long as the user has entrie(s)", ()=>{
                 const myEntries = new Entries();
                 let i = myEntries.checkUserEntries(2);
+                --i;
                 const deEntries = {
                     "posID":4,
                     "userId":2,

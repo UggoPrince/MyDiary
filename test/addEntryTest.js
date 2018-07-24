@@ -27,6 +27,7 @@ describe("POST /api/v1/users/:userId/entries/", ()=>{
                 .send()
                 .end((err, res)=>{
                     let isEntriesExist = myEntries.checkUserEntries(3);
+                    --isEntriesExist;
                     let total = myEntries.checkTotalEntry(isEntriesExist);
 
                     let added = {

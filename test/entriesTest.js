@@ -16,7 +16,7 @@ describe("Entries", ()=>{
     });
 
     it("Entries.checkUserEntries(id) returns a number", ()=>{
-        expect(entries.checkUserEntries("1")).to.be.a("number");
+        expect(entries.checkUserEntries(1)).to.be.a("number");
     });
 
     it("Entries.getEntries() returns an array containg entries of users", ()=>{
@@ -27,6 +27,7 @@ describe("Entries", ()=>{
         " as long as the user has entrie(s)", ()=>{
             const myEntries = new Entries();
             let i = myEntries.checkUserEntries(2);
+            --i;
             const deEntries = {
                 "posID":4,
                 "userId":2,

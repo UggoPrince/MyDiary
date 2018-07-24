@@ -50,6 +50,7 @@ describe("Notifications", ()=>{
         it("notifies.getNoticeBook(1) should return notifications for user with id = 2 "+
                 "if that user has at least one notification", ()=>{
             let i = notifies.checkUserNotifies(2);
+            --i;
             const deNotifies = {
                 "posID":1,
                 "userId":2,

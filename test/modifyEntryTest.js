@@ -39,6 +39,7 @@ describe("PUT /api/v1/users/:userId/entries/:entryId", ()=>{
                         "Updated":true
                     };
                     let isEntriesExist = myEntries.checkUserEntries(2);
+                    --isEntriesExist;
                     let modified = myEntries.modifyEntry(isEntriesExist, 2, dataUpdate);
 
                     let packet = {
