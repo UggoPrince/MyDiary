@@ -23,6 +23,7 @@ function getEntries (req, res){
                     let totalEntry = myEntries.checkTotalEntry(isEntriesExist);
 
                     if(totalEntry >= entryID){
+                        
                         --entryID // reduce it to its position in the this.entries["entries"] array of Diary.
                         let entry = myEntries.getEntry(isEntriesExist, entryID);
                         let packet = {
