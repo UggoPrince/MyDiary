@@ -1,27 +1,37 @@
 import {Pool} from "pg";
-import config from "./config";
 
 class Database{
     constructor(){
         this.pool = this.connentDB();
+        //this.createTables();
     }
 
     connentDB(){
-        return new Pool(config);
+        return new Pool("postgres://postgres:admin@localhost:5432/mydiary");
     }
 
-    queryDB(queryString){
-        this.pool.query(queryString, (err, res)=>{
-            if(err){
-                throw err;
+    getQueryDB(queryString){
+        this.pool.connect((err, client, done)=>{
+            if(err){ // eslint-disable-next-line
+                console.log(err);
             }
-            else{
-                return res.rows;
-            }
+            client.query(queryString, (err, result)=>{
+                done();
+                if(err){ // eslint-disable-next-line
+                    console.log(err);
+                }
+                else return result.rows;
+            });
         });
     }
 
-    createTables(){
+    setQueryDB(queryString){
+        this.pool.query(queryString);
+    }
+
+
+
+    /*createTables(){
         const usersTable = `CREATE TABLE IF NOT EXISTS users (
                                 id INT PRIMARY KEY, 
                                 firstname VARCHAR(20) NOT NULL,
@@ -48,10 +58,10 @@ class Database{
                                 timeUpdated DATE
                             );`;
         
-        this.queryDB(usersTable);
-        this.queryDB(entriesTable);
-        this.queryDB(notificationsTable);
-    }
+        this.setQueryDB(usersTable);
+        this.setQueryDB(entriesTable);
+        this.setQueryDB(notificationsTable);
+    }*/
 }
 
 export default Database;

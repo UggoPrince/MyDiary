@@ -1,68 +1,22 @@
+import DataB from "./database";
+
 class Users{
     constructor(){
-        this.allUsers = this.getUsers();
+        this.db = new DataB();
     }
 
-    checkUser(id){
-        for(let u of this.allUsers){
-            if(u.userId == id){
-                this.user = u;
-                return true;
-            }
-        }
-        return false;
+    signupUser(userData){
+        let query = "INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING *";
+        this.db.getQueryDB(query, userData);
     }
 
-    getUser(id){
-        if(id <= this.allUsers.length && id > 0){
-            let i = id - 1;
-            return this.allUsers[i];
-        }
-        else{
-            return null;
-        }
+    checkUser(email){
+        let text = "SELECT email FROM users WHERE email = " + email;
+        let result = this.db.getQueryDB(text);
+        return result;
     }
 
-    getUsers(){
-        const users = [
-            {
-                "userId":1,
-                "email":"ben@gmail.com",
-                "password":"12345678",
-                "fisrtname":"Ben",
-                "lastname":"Carson"
-            },
-            {
-                "userId":2,
-                "email":"joe@gmail.com",
-                "password":"12123434",
-                "fisrtname":"Joe",
-                "lastname":"Ike"
-            },
-            {
-                "userId":3,
-                "email":"kerry@gmail.com",
-                "password":"454567kk",
-                "fisrtname":"Kerry",
-                "lastname":"Hilson"
-            },
-            {
-                "userId":4,
-                "email":"uzochukwu@gmail.com",
-                "password":"uzohjkl",
-                "fisrtname":"Uzochukwu",
-                "lastname":"Okoro"
-            },
-            {
-                "userId":5,
-                "email":"tochi@gmail.com",
-                "password":"tochi556",
-                "fisrtname":"Tochi",
-                "lastname":"Kenedy"
-            }
-        ];
-        return users;
-    }
+    getUser(){}
 }
 
 export default Users;
