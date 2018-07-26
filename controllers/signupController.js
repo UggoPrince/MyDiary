@@ -46,6 +46,7 @@ function signup(req, res){
                 existEmail = result.rowCount;
                 if(existEmail > 0){
                     res.status(404).json({"Error": "Email already exist. kindly sign in."});
+                    done();
                 }
                 else{
 
@@ -56,13 +57,16 @@ function signup(req, res){
                         const token = jwt.sign({"email": userData.email}, email, {expiresIn: 240});// eslint-disable-next-line
                         console.log(result);
                         res.status(200).json({auth:true, token: token});
+                        done();
 
                     }).catch((err) => {
                         res.status(500).json(err);
+                        done();
                     });
                 }
             }).catch((err) => {
                 res.status(500).json(err);
+                done();
             });
         });
     }

@@ -1,5 +1,5 @@
 import {app, expect, chai} from "./index";
-let port = process.env.PORT || 1000;
+let port = 3000;
 app.listen(port);
 
 describe("sign up test", ()=>{

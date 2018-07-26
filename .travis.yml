@@ -14,6 +14,10 @@ services:
 addons:
   chrome: stable
 before_script:
+  - psql -U postgres -d postgres -a -f ./node_modules/navaja-sql/machete-db-user.sql
+  - export PGPASSWORD="admin"
+  - psql -U machetedb_app_user -d postgres -a -f ./node_modules/navaja-sql/machete-db.sql
+  - psql -U machetedb_app_user -d machetedb -a -f ./node_modules/navaja-sql/machete-employer.sql
   - npm install nyc
   - curl -L https://codeclimate.com/downloads/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
