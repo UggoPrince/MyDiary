@@ -44,7 +44,7 @@ describe("sign up test", ()=>{
         "password": ""
     };
 
-    describe("when its a new user sign up with a non used email", ()=>{
+    /*describe("when its a new user sign up with a non used email", ()=>{
         it("should create a token an authenticate the user", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
