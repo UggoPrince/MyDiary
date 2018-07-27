@@ -1,11 +1,16 @@
-import {app, expect, chai} from "./index";
+import chai from "chai";
+import chaiHttp from "chai-http";
+import app from "../index";
+
+const expect = chai.expect;
+chai.use(chaiHttp);
 
 describe("sign up test", ()=>{
     
-    let newData = {
+    /*let newData = {
         "firstname": "ken", 
         "lastname": "peter", 
-        "email": "bettermail@gmail.com", 
+        "email": "foremail@gmail.com", 
         "password": "12345678"
     };
 
@@ -14,7 +19,7 @@ describe("sign up test", ()=>{
         "lastname": "anayo", 
         "email": "uggoprince@gmail.com", 
         "password": "12345678"
-    };
+    };*/
 
     let userData2 = {
         "firstname": "", 
@@ -50,17 +55,12 @@ describe("sign up test", ()=>{
                 .post("/api/v1/auth/signup")
                 .send(newData)
                 .end((err, res)=>{
-                    if(res.status == 201){
-                        expect(res.type).to.be.equal("application/json");
-                        expect(res.status).to.be.eql(201);
-                    }
-                    else{
-                        expect(res.status).to.be.eql(404);
-                    }
+                    expect(res.type).to.be.equal("application/json");
+                    expect(res.status).to.be.eql(201);
                     done();
                 });
         });
-    });
+    });*/
 
     /*describe("When a user wants to register with a used email", ()=>{
         it("should tell user that email has already been used", (done)=>{
@@ -69,7 +69,7 @@ describe("sign up test", ()=>{
                 .send(userData)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
-                    expect(res.status).to.be.eql(404 || 500);
+                    expect(res.status).to.be.eql(404);
                     expect(res.body).to.be.eql({"Error": "Email already exist. kindly sign in."});
                     done();
                 });

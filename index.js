@@ -17,3 +17,5 @@ app.use((req, res)=>{
 });
 
 app.listen(port);
+
+export default app;
