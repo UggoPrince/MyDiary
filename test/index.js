@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import chai from "chai";
 import chaiHttp from "chai-http";
+import jwt from "jsonwebtoken";
 import signupRouter from "../routes/authRouter";
 
 const app = express();
@@ -19,6 +20,9 @@ app.use((req, res)=>{
     res.status(404).json("Not Found");
 });
 
+let port = process.env.PORT || 8000;
+app.listen(port);
+
 //app.listen(port);
 
-export {app, expect, chai};
+export {app, expect, chai, jwt};

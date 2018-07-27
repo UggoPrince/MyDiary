@@ -1,9 +1,14 @@
 import {app, expect, chai} from "./index";
-let port = 3000;
-app.listen(port);
 
 describe("sign up test", ()=>{
     
+    let newData = {
+        "firstname": "ken", 
+        "lastname": "peter", 
+        "email": "bettermail@gmail.com", 
+        "password": "12345678"
+    };
+
     let userData = {
         "firstname": "ugo", 
         "lastname": "anayo", 
@@ -39,21 +44,37 @@ describe("sign up test", ()=>{
         "password": ""
     };
 
-    describe("When a user wants to register with a used email", ()=>{
-        it("should tell user that email has already been used", (done)=>{
+    describe("when its a new user sign up with a non used email", ()=>{
+        it("should create a token an authenticate the user", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
-                .send(userData)
+                .send(newData)
                 .end((err, res)=>{
-                    if(!err){
+                    if(res.status == 201){
                         expect(res.type).to.be.equal("application/json");
+                        expect(res.status).to.be.eql(201);
+                    }
+                    else{
                         expect(res.status).to.be.eql(404);
-                        expect(res.body).to.be.eql({"Error": "Email already exist. kindly sign in."});
                     }
                     done();
                 });
         });
     });
+
+    /*describe("When a user wants to register with a used email", ()=>{
+        it("should tell user that email has already been used", (done)=>{
+            chai.request(app)
+                .post("/api/v1/auth/signup")
+                .send(userData)
+                .end((err, res)=>{
+                    expect(res.type).to.be.equal("application/json");
+                    expect(res.status).to.be.eql(404 || 500);
+                    expect(res.body).to.be.eql({"Error": "Email already exist. kindly sign in."});
+                    done();
+                });
+        });
+    });*/
 
     describe("when the user doesn't enter a firstname", ()=>{
         it("should tell the user that an invalid firstname was entered", (done)=>{
@@ -106,6 +127,20 @@ describe("sign up test", ()=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(404);
                     expect(res.body).to.be.eql({"Error": "Password should be more than 8."});
+                    done();
+                });
+        });
+    });
+
+    describe("when url is entered", ()=>{
+        it("should tell the user that nothing found", (done)=>{
+            chai.request(app)
+                .post("/api/v1/auth/sign")
+                .send()
+                .end((err, res)=>{
+                    expect(res.type).to.be.equal("application/json");
+                    expect(res.status).to.be.eql(404);
+                    expect(res.body).to.be.eql("Not Found");
                     done();
                 });
         });

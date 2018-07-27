@@ -53,22 +53,19 @@ function signup(req, res){
                     client.query("INSERT INTO users(firstname, lastname, email, password) values($1, $2, $3, $4)", 
                             [userData.firstname, userData.lastname, userData.email, userData.password])
                     .then((result) => {
-
-                        const token = jwt.sign({"email": userData.email}, email, {expiresIn: 240});// eslint-disable-next-line
-                        console.log(result);
-                        res.status(200).json({auth:true, token: token});
                         done();
+                        const token = jwt.sign({"email": userData.email}, email, {expiresIn: 240});// eslint-disable-next-line
+                        res.status(201).json({auth:true, token: token});
 
                     }).catch((err) => {
                         res.status(500).json(err);
-                        done();
                     });
                 }
             }).catch((err) => {
                 res.status(500).json(err);
-                done();
             });
         });
+        pool.end();
     }
 }
 
