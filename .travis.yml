@@ -7,9 +7,12 @@ env:
 cache:
   directories:
     - "node_modules"
+services:
+       - postgresql
 addons:
   chrome: stable
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   - npm install nyc
   - curl -L https://codeclimate.com/downloads/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
