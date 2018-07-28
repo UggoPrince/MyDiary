@@ -60,15 +60,14 @@ function signup(req, res){
                             res.status(500).json(err);
                         }
                         else{
-                            const token = jwt.sign({"email": userData.email}, secret, {expiresIn: 240});// eslint-disable-next-line
+                            const token = jwt.sign({"email": userData.email}, secret, {expiresIn: 2400});// eslint-disable-next-line
                             res.status(201).json({auth:true, token: token});
+                            pool.end();
                         }
                     });
                 }
             });
         });
-
-        pool.end();
     }
 }
 
