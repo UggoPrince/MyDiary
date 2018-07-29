@@ -9,6 +9,7 @@ function signup(req, res){
     let lname = req.body.lastname;
     let email = req.body.email;
     let password = req.body.password;
+    
     let userData = {
         "firstname": fname, 
         "lastname": lname, 
@@ -48,27 +49,27 @@ function signup(req, res){
                     done();
                 }
                 else{
-                    //this.registerUser(userData, req, res);
                     let secret = userData.email;
-
         
                         client.query("INSERT INTO users(firstname, lastname, email, password) values($1, $2, $3, $4)", 
-                            [userData.firstname, userData.lastname, userData.email, userData.password], (err, result)=>{
+                            [userData.firstname, userData.lastname, userData.email, userData.password], (err, result2)=>{
                         if(err){
                             // eslint-disable-next-line
-                            console.log(result);
+                            console.log(result2.rows[0]);
                             res.status(500).json(err);
                         }
                         else{
-                            const token = jwt.sign({"email": userData.email}, secret, {expiresIn: 240});// eslint-disable-next-line
-                            res.status(201).json({auth:true, token: token});
+                            client.query("SELECT * FROM users WHERE email = ($1)", [userData.email], (err, result3)=>{
+                                let tokenOBJ = {email: userData.email, password: userData.password, id: result3.rows[0].id};
+                                const token = jwt.sign({"userToken": tokenOBJ}, secret, {expiresIn: 2400});// eslint-disable-next-line
+                                res.status(201).json({auth:true, token: token});
+                                //pool.end(); 
+                            });
                         }
                     });
                 }
             });
         });
-
-        pool.end();
     }
 }
 
