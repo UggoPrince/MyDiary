@@ -8,8 +8,6 @@ chai.use(chaiHttp);
 
 describe("POST /api/v1/auth/login Log in test", ()=>{
 
-    let someToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVG9rZW4iOnsiZW1haWwiOiJ0aGF0cHJpbmNlQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJpZCI6IjEzIn0sImlhdCI6MTUzMjg5NjEwNiwiZXhwIjoxNTMyOTIwMTA2fQ.JfuCYQ1nMG0utIl0vKd6PHgf0QErDay2UiRzOfrs8kA";
-
     let tokenOBJ = {email: "uggoprince@gmail.com", password: "12345678", id: 3};
     const loginToken = jwt.sign({"userToken": tokenOBJ}, "uggoprince@gmail.com", {expiresIn: 24000});
 
