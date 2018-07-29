@@ -11,8 +11,10 @@ services:
        - postgresql
 addons:
   chrome: stable
+  postgresql: "9.5"
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database uggo;' -U postgres
+  - psql -c "CREATE USER uggo WITH PASSWORD 'admin';" -U postgres
   - npm install nyc
   - curl -L https://codeclimate.com/downloads/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
