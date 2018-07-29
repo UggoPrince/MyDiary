@@ -6,6 +6,7 @@ let pool = new pg.Pool("postgres://uggo:admin@localhost:5432/uggo");
 function login(req, res){
     let email = req.body.email;
     let password = req.body.password;
+    let sentToken = req.body.token || req.headers["authentication"];
 
     let loginData = {
         "email": email,
@@ -20,48 +21,76 @@ function login(req, res){
     }
     else{
         pool.connect((err, client, done)=>{
-            let tokenExist = req.headers["x-access-token"];
-            if(tokenExist) {
-                res.json(tokenExist);
-                done();
-            }
+            
             if(err){
                 // eslint-disable-next-line
                 console.log(err);
                 res.status(500).json({success:false, data:err});
                 done();
             }
-            let secret = email;
-
             
+            let secret = email;
+            let decoded;
 
+            doLogin(req, res, loginData, sentToken, secret);
+            
+            if(sentToken != "" && sentToken != "undefined"){
+                //res.json(sentToken);
+                jwt.verify(sentToken, email, (err, decode)=>{
+                    if(err){
+                        decoded = err;
+                    }
+                    else{
+                        decoded = decode;
+                    }
+                });
+
+                if(decoded.expiredAt){
+                    sentToken = "";
+                    doLogin(req, res, loginData, sentToken, secret);
+                }
+                else{
+                    if(decoded.userToken){
+                        if(decoded.userToken["email"] == email && decoded.userToken.password == password){
+                            res.status(200).json({auth:true, message: "user is still authenticated"});
+                        }
+                    }
+                    else { 
+                        sentToken = "";
+                        doLogin(req, res, loginData, sentToken, secret);
+                    }
+                }
+            }
+        });
+    }
+}
+
+function doLogin(req, res, loginData, sentToken, secret){
+    pool.connect((err, client, done)=>{
+        if(sentToken == "" || sentToken == "undefined"){
+                    
             client.query("SELECT * FROM users WHERE email = ($1)", [loginData.email], (err, result)=>{
                 if(err){
                     res.status(500).json({success:false, data:err});
                     done();
                 }
                 else if(result.rowCount == 0){
-                    res.status(404).json({"Error": "Email not found. kindly sign up."});
+                    res.status(404).json({"Error": "Invalid Email/Password"});
                 }
                 else if(result.rows[0].email == loginData["email"] && result.rows[0].password != loginData["password"] ){
                     res.status(404).json({"Error": "Invalid Email/Password"});
                     done();
                 }
                 else if(result.rows[0].email == loginData["email"] && result.rows[0].password == loginData["password"] ){
-                    const loginToken = jwt.sign({"email": loginData.email}, secret, {expiresIn: 24000});// eslint-disable-next-line
-                    let authHeader = req.headers["authorization"];
-                    let decoded = jwt.verify(authHeader, email);
-                    res.json(decoded);
-                    /*jwt.verify(authHeader, email, (err, decoded)=> {
-                        if (err) return res.status(500).send({ auth: false, message: "Failed to authenticate token.", error:err});
-                        else res.json(decoded);
-                    });*/
-                    //res.status(202).json({auth:true, token: loginToken, resu:result});
+                    let tokenOBJ = {email: loginData.email, password: loginData.password, id: result.rows[0].id};
+                    const loginToken = jwt.sign({"userToken": tokenOBJ}, secret, {expiresIn: 24000});// eslint-disable-next-line
+                    
+                    res.status(200).json({auth:true, token: loginToken});
                     //pool.end();
                 }
             });
-        });
-    }
+        }
+    });
 }
 
 export default login;

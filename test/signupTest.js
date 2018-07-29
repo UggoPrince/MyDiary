@@ -5,12 +5,12 @@ import app from "../index";
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe("sign up test", ()=>{
+describe("POST /api/v1/auth/signup sign up test", ()=>{
     
-    /*let newData = {
+    let newData = {
         "firstname": "ken", 
         "lastname": "peter", 
-        "email": "foremail@gmail.com", 
+        "email": "fore25mail@gmail.com", 
         "password": "12345678"
     };
 
@@ -19,7 +19,7 @@ describe("sign up test", ()=>{
         "lastname": "anayo", 
         "email": "uggoprince@gmail.com", 
         "password": "12345678"
-    };*/
+    };
 
     let userData2 = {
         "firstname": "", 
@@ -49,20 +49,21 @@ describe("sign up test", ()=>{
         "password": ""
     };
 
-    /*describe("when its a new user sign up with a non used email", ()=>{
-        it("should create a token an authenticate the user", (done)=>{
+    describe("when its a new user sign up with a non used email", ()=>{
+        it("should create a token and authenticate the user", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
                 .send(newData)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(201);
+                    expect(res.body).to.be.a("object");
                     done();
                 });
         });
-    });*/
+    });
 
-    /*describe("When a user wants to register with a used email", ()=>{
+    describe("When a user wants to register with a used email", ()=>{
         it("should tell user that email has already been used", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
@@ -74,7 +75,7 @@ describe("sign up test", ()=>{
                     done();
                 });
         });
-    });*/
+    });
 
     describe("when the user doesn't enter a firstname", ()=>{
         it("should tell the user that an invalid firstname was entered", (done)=>{
