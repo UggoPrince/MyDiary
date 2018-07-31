@@ -5,12 +5,12 @@ import app from "../index";
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe("POST /api/v1/auth/signup sign up test", ()=>{
+describe("POST /api/v1/auth/signup", ()=>{
     
     let newData = {
         "firstname": "ken", 
         "lastname": "peter", 
-        "email": "fore25mail@gmail.com", 
+        "email": "fore89mail@gmail.com", 
         "password": "12345678"
     };
 
@@ -58,20 +58,6 @@ describe("POST /api/v1/auth/signup sign up test", ()=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(201);
                     expect(res.body).to.be.a("object");
-                    done();
-                });
-        });
-    });
-
-    describe("When a user wants to register with a used email", ()=>{
-        it("should tell user that email has already been used", (done)=>{
-            chai.request(app)
-                .post("/api/v1/auth/signup")
-                .send(userData)
-                .end((err, res)=>{
-                    expect(res.type).to.be.equal("application/json");
-                    expect(res.status).to.be.eql(404);
-                    expect(res.body).to.be.eql({"Error": "Email already exist. kindly sign in."});
                     done();
                 });
         });
@@ -137,6 +123,34 @@ describe("POST /api/v1/auth/signup sign up test", ()=>{
         it("should tell the user that nothing found", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/sign")
+                .send()
+                .end((err, res)=>{
+                    expect(res.type).to.be.equal("application/json");
+                    expect(res.status).to.be.eql(404);
+                    expect(res.body).to.be.eql("Not Found");
+                    done();
+                });
+        });
+    });
+
+    describe("When a user wants to register with a used email", ()=>{
+        it("should tell user that email has already been used", (done)=>{
+            chai.request(app)
+                .post("/api/v1/auth/signup")
+                .send(newData)
+                .end((err, res)=>{
+                    expect(res.type).to.be.equal("application/json");
+                    expect(res.status).to.be.eql(409);
+                    expect(res.body).to.be.eql({"Error": "Email already exist. kindly sign in."});
+                    done();
+                });
+        });
+    });
+
+    describe("When the user enters a wrong url", ()=>{
+        it("should tell the user 'Not Found'", (done)=>{
+            chai.request(app)
+                .post("/api/v1/auth/sig")
                 .send()
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");

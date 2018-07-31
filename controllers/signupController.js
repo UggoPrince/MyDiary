@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import pg from "pg";
+import {createTables} from "../models/database";
+
+createTables();
 
 let pool = new pg.Pool("postgres://uggo:admin@localhost:5432/uggo");
 
@@ -45,11 +48,11 @@ function signup(req, res){
                     res.status(500).json(err);
                 }
                 else if(result.rowCount > 0){
-                    res.status(404).json({"Error": "Email already exist. kindly sign in."});
+                    res.status(409).json({"Error": "Email already exist. kindly sign in."});
                     done();
                 }
                 else{
-                    let secret = userData.email;
+                    let secret = "emailsecret";
         
                         client.query("INSERT INTO users(firstname, lastname, email, password) values($1, $2, $3, $4)", 
                             [userData.firstname, userData.lastname, userData.email, userData.password], (err, result2)=>{
