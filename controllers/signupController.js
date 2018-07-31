@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import pg from "pg";
+import {createTables} from "../models/database";
+
+createTables();
 
 let pool = new pg.Pool("postgres://uggo:admin@localhost:5432/uggo");
 
@@ -49,7 +52,7 @@ function signup(req, res){
                     done();
                 }
                 else{
-                    let secret = userData.email;
+                    let secret = "emailsecret";
         
                         client.query("INSERT INTO users(firstname, lastname, email, password) values($1, $2, $3, $4)", 
                             [userData.firstname, userData.lastname, userData.email, userData.password], (err, result2)=>{

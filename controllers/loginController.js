@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import pg from "pg";
+import {createTables} from "../models/database";
+
+createTables();
 
 let pool = new pg.Pool("postgres://uggo:admin@localhost:5432/uggo");
 
@@ -29,14 +32,14 @@ function login(req, res){
                 done();
             }
             
-            let secret = email;
+            let secret = "emailsecret";
             let decoded;
 
             doLogin(req, res, loginData, sentToken, secret);
             
             if(sentToken != "" && sentToken != "undefined"){
                 //res.json(sentToken);
-                jwt.verify(sentToken, email, (err, decode)=>{
+                jwt.verify(sentToken, "emailsecret", (err, decode)=>{
                     if(err){
                         decoded = err;
                     }
@@ -67,6 +70,10 @@ function login(req, res){
 
 function doLogin(req, res, loginData, sentToken, secret){
     pool.connect((err, client, done)=>{
+        if(err){
+            res.status(500).json({success:false, data:err});
+            done();
+        }
         if(sentToken == "" || sentToken == "undefined"){
                     
             client.query("SELECT * FROM users WHERE email = ($1)", [loginData.email], (err, result)=>{
@@ -75,6 +82,7 @@ function doLogin(req, res, loginData, sentToken, secret){
                     done();
                 }
                 else if(result.rowCount == 0){
+                    done();
                     res.status(404).json({"Error": "Invalid Email/Password"});
                 }
                 else if(result.rows[0].email == loginData["email"] && result.rows[0].password != loginData["password"] ){

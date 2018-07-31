@@ -6,10 +6,10 @@ import app from "../index";
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe("POST /api/v1/auth/login Log in test", ()=>{
+describe("POST /api/v1/auth/login", ()=>{
 
     let tokenOBJ = {email: "uggoprince@gmail.com", password: "12345678", id: 3};
-    const loginToken = jwt.sign({"userToken": tokenOBJ}, "uggoprince@gmail.com", {expiresIn: 24000});
+    const loginToken = jwt.sign({"userToken": tokenOBJ}, "emailsecret", {expiresIn: 24000});
 
     let userData = { 
         "email": "uggoprince@gmail.com", 
@@ -30,7 +30,7 @@ describe("POST /api/v1/auth/login Log in test", ()=>{
     let userData4 = {
         "email": "wrongemail@gmail.com", 
         "password": "123456789",
-        "token": loginToken
+        "token": ""
     };
 
     let userData5 = {
@@ -95,8 +95,22 @@ describe("POST /api/v1/auth/login Log in test", ()=>{
                 .send(userData5)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
-                    expect(res.status).to.be.eql(200);
                     expect(res.body).to.be.a("object");
+                    done();
+                });
+        });
+    });
+
+    describe("When the user provides an email that is not in the database", ()=>{
+        it("should tell the user that an invalid email or password was provided", (done)=>{
+            chai.request(app)
+                .post("/api/v1/auth/login")
+                //.set({"authentication": loginToken})
+                .send(userData4)
+                .end((err, res)=>{
+                    expect(res.type).to.be.equal("application/json");
+                    expect(res.status).to.be.eql(404);
+                    expect(res.body).to.be.eql({"Error": "Invalid Email/Password"});
                     done();
                 });
         });
@@ -106,7 +120,7 @@ describe("POST /api/v1/auth/login Log in test", ()=>{
         it("should tell the user that an invalid email or password was provided", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/login")
-                .set({"authentication": loginToken})
+                //.set({"authentication": loginToken})
                 .send(userData6)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
@@ -117,16 +131,16 @@ describe("POST /api/v1/auth/login Log in test", ()=>{
         });
     });
 
-    describe("When the user provides an email that is not in the database", ()=>{
-        it("should tell the user that an invalid email or password was provided", (done)=>{
+    describe("When the user enters a wrong url", ()=>{
+        it("should tell the user 'Not Found'", (done)=>{
             chai.request(app)
-                .post("/api/v1/auth/login")
-                .set({"authentication": loginToken})
+                .post("/api/v1/auth/logi")
+                //.set({"authentication": loginToken})
                 .send(userData4)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(404);
-                    expect(res.body).to.be.eql({"Error": "Invalid Email/Password"});
+                    expect(res.body).to.be.eql("Not Found");
                     done();
                 });
         });
