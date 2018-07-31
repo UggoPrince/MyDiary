@@ -48,7 +48,7 @@ function signup(req, res){
                     res.status(500).json(err);
                 }
                 else if(result.rowCount > 0){
-                    res.status(404).json({"Error": "Email already exist. kindly sign in."});
+                    res.status(409).json({"Error": "Email already exist. kindly sign in."});
                     done();
                 }
                 else{
