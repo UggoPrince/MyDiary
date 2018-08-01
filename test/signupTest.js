@@ -7,19 +7,19 @@ chai.use(chaiHttp);
 
 describe("POST /api/v1/auth/signup", ()=>{
     
-    let newData = {
+    /*let newData = {
         "firstname": "ken", 
         "lastname": "peter", 
         "email": "fore89mail@gmail.com", 
         "password": "12345678"
-    };
+    };*/
 
-    /*let userData = {
+    let userData = {
         "firstname": "ugo", 
         "lastname": "anayo", 
         "email": "uggoprince@gmail.com", 
         "password": "12345678"
-    };*/
+    };
 
     let userData2 = {
         "firstname": "", 
@@ -49,7 +49,7 @@ describe("POST /api/v1/auth/signup", ()=>{
         "password": ""
     };
 
-    describe("when its a new user sign up, with a non used email", ()=>{
+    /*describe("when its a new user sign up, with a non used email", ()=>{
         it("should create a token and authenticate the user", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
@@ -61,7 +61,7 @@ describe("POST /api/v1/auth/signup", ()=>{
                     done();
                 });
         });
-    });
+    });*/
 
     describe("when the user doesn't enter a firstname", ()=>{
         it("should tell the user that an invalid firstname was entered", (done)=>{
@@ -119,7 +119,7 @@ describe("POST /api/v1/auth/signup", ()=>{
         });
     });
 
-    describe("when url is entered", ()=>{
+    describe("when wrong url is entered", ()=>{
         it("should tell the user that nothing found", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/sign")
@@ -137,7 +137,7 @@ describe("POST /api/v1/auth/signup", ()=>{
         it("should tell user that email has already been used", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
-                .send(newData)
+                .send(userData)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(409);

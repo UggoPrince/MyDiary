@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import pg from "pg";
-import {createTables} from "../models/database";
+import createTables from "../models/database";
 
 createTables();
 
