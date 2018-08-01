@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 describe("GET /api/v1/entries", ()=>{
 
-    let tokenOBJ = {email: "uggoprince@gmail.com", password: "12345678", id: 3};
+    let tokenOBJ = {email: "fore89prince@gmail.com", password: "12345678", id: 21};
     const loginToken = jwt.sign({"userToken": tokenOBJ}, "emailsecret", {expiresIn: 2400});
 
     let exToken = {email: "prince@gmail.com", password: "12345678", id: 9};
@@ -28,7 +28,7 @@ describe("GET /api/v1/entries", ()=>{
         });
     });
 
-    describe("when the user has no token yet", ()=>{
+    describe("when the user has no entry yet", ()=>{
         it("should tell the user to add an entry", (done)=>{
             chai.request(app)
             .get("/api/v1/entries")

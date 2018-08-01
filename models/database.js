@@ -1,12 +1,6 @@
 import pg from "pg";
 let pool = new pg.Pool("postgres://uggo:admin@localhost:5432/uggo");
 
-let createTables = function(){
-    createUsersTable();
-    createEntriesTable();
-    createNotificationsTable();
-};
-
 function createUsersTable(){
     pool.connect((err, client, done)=>{
         if(err){
@@ -37,10 +31,10 @@ function createEntriesTable(){
             id SERIAL NOT NULL PRIMARY KEY,
             userid BIGINT,
             title VARCHAR(300),
-            body VARCHAR(1000),
-            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-            updated BOOLEAN NOT NULL DEFAULT FAlSE
+            body VARCHAR(1000) NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMP,
+            updated BOOLEAN DEFAULT FAlSE
         )`);
     });
 }
@@ -57,12 +51,18 @@ function createNotificationsTable(){
             id SERIAL NOT NULL PRIMARY KEY,
             userid BIGINT,
             title VARCHAR(300),
-            body VARCHAR(1000),
-            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-            updated BOOLEAN NOT NULL DEFAULT FALSE
+            body VARCHAR(1000) NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+            updated_at TIMESTAMP,
+            updated BOOLEAN DEFAULT FALSE
         )`);
     });
 }
 
-export {createTables};
+function createTables(){
+    createUsersTable();
+    createEntriesTable();
+    createNotificationsTable();
+}
+
+export default createTables;
