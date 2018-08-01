@@ -32,9 +32,9 @@ function createEntriesTable(){
             userid BIGINT,
             title VARCHAR(300),
             body VARCHAR(1000) NOT NULL,
-            created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-            updated_at TIMESTAMP,
-            updated BOOLEAN DEFAULT FAlSE
+            created_at VARCHAR(20) NOT NULL,
+            updated_at VARCHAR(20),
+            updated BOOLEAN DEFAULT FALSE
         )`);
     });
 }
@@ -52,8 +52,8 @@ function createNotificationsTable(){
             userid BIGINT,
             title VARCHAR(300),
             body VARCHAR(1000) NOT NULL,
-            created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-            updated_at TIMESTAMP,
+            created_at VARCHAR(20) NOT NULL,
+            updated_at VARCHAR(20)
             updated BOOLEAN DEFAULT FALSE
         )`);
     });

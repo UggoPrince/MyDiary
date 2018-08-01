@@ -45,7 +45,7 @@ describe("GET /api/v1/entries/entryId", ()=>{
     describe("when a token has not expired but there is no entry with the id the user provided", ()=>{
         it("should tell the user 'No entry with that id was found'", (done)=>{
             chai.request(app)
-                .get("/api/v1/entries/3")
+                .get("/api/v1/entries/50")
                 .set({"authentication": loginToken})
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");

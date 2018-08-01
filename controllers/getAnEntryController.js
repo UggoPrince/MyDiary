@@ -12,7 +12,7 @@ function getAnEntry(req, res){
     let sentToken = req.headers["authentication"];
     let decoded;
 
-    if(!isEntryID && Math.sign(entryID) != -1){
+    if(!isEntryID && Math.sign(entryID) != -1 && entryID != 0){
         if(sentToken != "" && sentToken != "undefined"){
             jwt.verify(sentToken, "emailsecret", (err, decode)=>{
                 if(err){
@@ -34,17 +34,18 @@ function getAnEntry(req, res){
                             res.status(500).json({success:false, data:err});
                             done();
                         }
-                        client.query("SELECT * FROM entries WHERE id = ($1) AND userid = ($2)", [entryID, id], (err, result)=>{
+                        client.query("SELECT * FROM entries WHERE userid = ($1) ORDER BY id ASC", [id], (err, result)=>{
                             if(err){
                                 res.status(500).json({success:false, data:err});
                                 done();
                             }
-                            else if(result.rowCount == 0){
+                            else if(result.rowCount == 0 || result.rowCount < entryID){
                                 res.status(200).json({"message": "No entry with that id was found"});
                                 done();
                             }
                             else{
-                                res.status(200).json(result.rows);
+                                let eID = entryID - 1;
+                                res.status(200).json(result.rows[eID]);
                                 done();
                             }
                         

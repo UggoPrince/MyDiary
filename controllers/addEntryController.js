@@ -37,7 +37,8 @@ function addEntry(req, res){ //
                             res.status(500).json({success:false, data:err});
                             done();
                         }
-                        client.query("INSERT INTO entries(userid, title, body) values ($1, $2, $3)", [id, title, debody], (err, result)=>{
+                        let eDate = new Date().toLocaleString();
+                        client.query("INSERT INTO entries(userid, title, body, created_at) values ($1, $2, $3, $4)", [id, title, debody, eDate], (err, result)=>{
                             if(err){
                                 res.status(500).json({success:false, data:err});
                                 done();
