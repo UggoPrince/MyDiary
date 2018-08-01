@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import pg from "pg";
+import {createTables} from "../models/database";
+
+createTables();
 
 let pool = new pg.Pool("postgres://uggo:admin@localhost:5432/uggo");
 

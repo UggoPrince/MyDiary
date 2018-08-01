@@ -14,12 +14,12 @@ describe("POST /api/v1/auth/signup", ()=>{
         "password": "12345678"
     };
 
-    let userData = {
+    /*let userData = {
         "firstname": "ugo", 
         "lastname": "anayo", 
         "email": "uggoprince@gmail.com", 
         "password": "12345678"
-    };
+    };*/
 
     let userData2 = {
         "firstname": "", 
@@ -49,7 +49,7 @@ describe("POST /api/v1/auth/signup", ()=>{
         "password": ""
     };
 
-    describe("when its a new user sign up with a non used email", ()=>{
+    describe("when its a new user sign up, with a non used email", ()=>{
         it("should create a token and authenticate the user", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/signup")
