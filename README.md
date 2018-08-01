@@ -1,7 +1,7 @@
 # MyDiary
 MyDiary is an online journal where users can pen down their thoughts and feelings.
 
-[![Build Status](https://travis-ci.org/UggoPrince/MyDiary.svg?branch=ft-addEntry-endpoint-#159297869)](https://travis-ci.org/UggoPrince/MyDiary) <a href='https://coveralls.io/github/UggoPrince/MyDiarybranch=ft-addEntry-endpoint-#159297869'><img src='https://coveralls.io/repos/github/UggoPrince/MyDiary/badge.svg?branch=ft-addEntry-endpoint-#159297869' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/UggoPrince/MyDiary/test_coverage"><img src="https://api.codeclimate.com/v1/badges/cd2bf5a44988d893158c/test_coverage" /></a>
+[![Build Status](https://travis-ci.org/UggoPrince/MyDiary.svg?branch=develop)](https://travis-ci.org/UggoPrince/MyDiary) <a href='https://coveralls.io/github/UggoPrince/MyDiarybranch=develop'><img src='https://coveralls.io/repos/github/UggoPrince/MyDiary/badge.svg?branch=develop' alt='Coverage Status' /></a> <a href="https://codeclimate.com/github/UggoPrince/MyDiary/test_coverage"><img src="https://api.codeclimate.com/v1/badges/cd2bf5a44988d893158c/test_coverage" /></a>
 
 ### Key Application Features
 A user can do the following:
