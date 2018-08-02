@@ -8,6 +8,7 @@
     "devstart": "nodemon --exec babel-node -- index",
     "test": "cross-env NODE_ENV=test nyc _mocha --require babel-core/register ./test/* --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "dbTables": "babel-node -- ./server/models/tables.js",
     "lint": "eslint index.js",
     "heroku-build": "npx babel index.js --out-dir / --ignore ./test"
   },

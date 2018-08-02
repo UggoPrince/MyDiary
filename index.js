@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import signupRouter from "./routes/authRouter";
-import getEntriesRouter from "./routes/entriesRouter";
+import signupRouter from "./server/routes/authRouter";
+import getEntriesRouter from "./server/routes/entriesRouter";
 
 const app = express();
 let port = process.env.PORT || 4000;

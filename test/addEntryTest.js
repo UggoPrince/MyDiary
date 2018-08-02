@@ -52,16 +52,16 @@ describe("POST /api/v1/entries", ()=>{
         });
     });*/
 
-    describe("when the users is not authenticated due to expired token", ()=>{
+    describe("when the user is not authenticated due to expired token", ()=>{
         it("should tell the user to login", (done)=>{
             chai.request(app)
                 .post("/api/v1/entries")
-                .set({"authenticate": ""})
+                .set({"authentication": exLoginToken})
                 .send(userData1)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(404);
-                    expect(res.body).to.be.eql({"Error":"Login to add entries!"});
+                    expect(res.body).to.be.eql({"Error":"Login to add an entry!"});
                     done();
                 });
         });
@@ -71,7 +71,7 @@ describe("POST /api/v1/entries", ()=>{
         it("should tell the user to provide a body for the entry", (done)=>{
             chai.request(app)
                 .post("/api/v1/entries")
-                .set({"authenticate": loginToken})
+                .set({"authentication": loginToken})
                 .send(userData2)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
@@ -86,7 +86,7 @@ describe("POST /api/v1/entries", ()=>{
         it("should return the value", (done)=>{
             chai.request(app)
                 .post("/api/v1/entries")
-                .set({"authenticate": loginToken})
+                .set({"authentication": loginToken})
                 .send(userData4)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
