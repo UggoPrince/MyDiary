@@ -87,7 +87,7 @@ describe("POST /api/v1/auth/login", ()=>{
         });
     });
 
-    describe("When the user provides an email and password that is in the database", ()=>{
+    /*describe("When the user provides an email and password that is in the database", ()=>{
         it("should tell the user that authentication was successful", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/login")
@@ -99,9 +99,9 @@ describe("POST /api/v1/auth/login", ()=>{
                     done();
                 });
         });
-    });
+    });*/
 
-    describe("When the user provides an email that is not in the database", ()=>{
+    /*describe("When the user provides an email that is not in the database", ()=>{
         it("should tell the user that an invalid email or password was provided", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/login")
@@ -114,13 +114,13 @@ describe("POST /api/v1/auth/login", ()=>{
                     done();
                 });
         });
-    });
+    });*/
 
     describe("When the user provides an email that is correct and a wrong password", ()=>{
         it("should tell the user that an invalid email or password was provided", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/login")
-                //.set({"authentication": loginToken})
+                .set({"authentication": loginToken})
                 .send(userData6)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
