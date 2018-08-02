@@ -1,5 +1,5 @@
 export const config = {
-    user: "uggo",
+    user: "postgres",
     host: "localhost",
     database: "uggo",
     password: "admin",
