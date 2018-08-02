@@ -81,7 +81,7 @@ describe("POST /api/v1/auth/login", ()=>{
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(200);
-                    expect(res.body).to.be.eql({auth:true, message: "user is still authenticated"});
+                    expect(res.body).to.be.a("object");
                     done();
                 });
         });
@@ -91,7 +91,8 @@ describe("POST /api/v1/auth/login", ()=>{
         it("should tell the user that authentication was successful", (done)=>{
             chai.request(app)
                 .post("/api/v1/auth/login")
-                .send(userData5)
+                .set({"authenticate":loginToken})
+                .send(userData)
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.body).to.be.a("object");
