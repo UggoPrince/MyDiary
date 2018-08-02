@@ -14,7 +14,6 @@ addons:
   postgresql: "9.6"
 before_script:
   - psql -c 'create database uggo;' -U postgres
-  - npm run dbTables
   - curl -L https://codeclimate.com/downloads/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
 after_script:
