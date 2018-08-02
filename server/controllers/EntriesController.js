@@ -1,5 +1,8 @@
 import entries from "../models/Entries";
 import {tokenStatus, verifyToken, validID, validEntry} from "../../helpers/allHelpers";
+import createTables from "../models/tables";
+
+createTables();
 
 class EntriesController{
     constructor(){

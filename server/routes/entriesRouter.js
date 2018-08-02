@@ -1,8 +1,6 @@
 import express from "express";
-import {createTables} from "../models/tables";
 import {entriesCon} from "../controllers/EntriesController";
 
-createTables();
 let getEntriesRouter = express.Router();
 
 getEntriesRouter.get("/entries", entriesCon.getEntries);

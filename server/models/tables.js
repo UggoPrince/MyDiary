@@ -40,4 +40,4 @@ const createTables = ()=>{
     });
 };
 
-export {createTables};
+export default createTables;

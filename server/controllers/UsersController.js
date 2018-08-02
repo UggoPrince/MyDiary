@@ -3,6 +3,9 @@ import user from "../models/User";
 import validateSignUp from "../../helpers/signupHelpers";
 import validateSignIn from "../../helpers/signinHelpers";
 import {tokenStatus, verifyToken} from "../../helpers/allHelpers";
+import createTables from "../models/tables";
+
+createTables();
 
 class UsersController{
     constructor(){
