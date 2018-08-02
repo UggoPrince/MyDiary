@@ -3,7 +3,7 @@ import config from "../../config";
 
 const client = new Client(config);
 
-export const createTables = ()=>{
+const createTables = ()=>{
 
     const query = `
     CREATE TABLE IF NOT EXISTS users (
@@ -39,3 +39,5 @@ export const createTables = ()=>{
         client.end();
     });
 };
+
+export {createTables};

@@ -1,5 +1,5 @@
 import express from "express";
-import createTables from "../models/tables";
+import {createTables} from "../models/tables";
 import {entriesCon} from "../controllers/EntriesController";
 
 createTables();
