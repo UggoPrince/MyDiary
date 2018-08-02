@@ -1,7 +1,7 @@
 export const config = {
-    user: "postgres",
+    user: "uggo",
     host: "localhost",
-    database: "mydiary",
+    database: "uggo",
     password: "admin",
     port: 5432,
 };

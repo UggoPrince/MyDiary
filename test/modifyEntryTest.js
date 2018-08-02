@@ -59,7 +59,7 @@ describe("PUT /api/v1/entries/entryId", ()=>{
             .end((err, res)=>{
                 expect(res.type).to.be.equal("application/json");
                 expect(res.status).to.be.eql(404);
-                expect(res.body).to.be.eql({"Error":"Login to view entries!"});
+                expect(res.body).to.be.eql({"Error":"Login to modify the entry!"});
                 done();
             });
         });
@@ -103,7 +103,7 @@ describe("PUT /api/v1/entries/entryId", ()=>{
             .end((err, res)=>{
                 expect(res.type).to.be.equal("application/json");
                 expect(res.status).to.be.eql(404);
-                expect(res.body).to.be.eql({error: "no entry like that"});
+                expect(res.body).to.be.eql({"message": "Found No entry for that id."});
                 done();
             });
         });

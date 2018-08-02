@@ -1,6 +1,6 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
-import createTables from "../models/database";
+import db from "../server/models/database";
 
 const expect = chai.expect;
 chai.use(chaiHttp);
@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe("Database test", ()=>{
     it("should create database tables", (done)=>{
         
-        expect(createTables).to.be.a("function");
+        expect(db).to.be.a("object");
         done();
     });
 });

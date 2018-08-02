@@ -36,7 +36,7 @@ describe("GET /api/v1/entries/entryId", ()=>{
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(404);
-                    expect(res.body).to.be.eql({"Error":"Login to view entries!"});
+                    expect(res.body).to.be.eql({"Error":"Login to get entries!"});
                     done();
                 });
         });
@@ -50,7 +50,7 @@ describe("GET /api/v1/entries/entryId", ()=>{
                 .end((err, res)=>{
                     expect(res.type).to.be.equal("application/json");
                     expect(res.status).to.be.eql(200);
-                    expect(res.body).to.be.eql({"message": "No entry with that id was found"});
+                    expect(res.body).to.be.eql({"message": "Found No entry for that id. Kindly add an entry."});
                     done();
                 });
         });
